@@ -34,14 +34,14 @@ public class ScreenshotComposer
 	
 	// Remember we are in testing stage.
 	private static String[] TEST_SCREENSHOT_LIST = {
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-21-41-46.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-21-41-55.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-21-42-04.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-21-42-10.png",
-		/*"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-01.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-04.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-07.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-12.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-39-20.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-39-29.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-39-37.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-39-43.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-39-48.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-39-57.png",
+		/*"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-30-20.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-23-03.png",
 		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-17.png",
 		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-22.png",
 		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-30.png",*/
