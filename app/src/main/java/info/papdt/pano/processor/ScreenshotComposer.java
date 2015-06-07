@@ -10,9 +10,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.CRC32;
 
 import static info.papdt.pano.BuildConfig.DEBUG;
+import static info.papdt.pano.support.Utility.*;
 
 /*
  * To compose a list of screenshots into one
@@ -22,7 +25,7 @@ import static info.papdt.pano.BuildConfig.DEBUG;
 public class ScreenshotComposer
 {
 	private static final String TAG = ScreenshotComposer.class.getSimpleName();
-	private static final String SEPERATOR = ",";
+	//private static final String SEPERATOR = ",";
 	
 	static class Region {
 		int startLine;
@@ -31,11 +34,17 @@ public class ScreenshotComposer
 	
 	// Remember we are in testing stage.
 	private static String[] TEST_SCREENSHOT_LIST = {
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-15-44-01.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-15-44-06.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-15-44-10.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-15-44-13.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-15-44-17.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-21-41-46.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-21-41-55.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-21-42-04.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-21-42-10.png",
+		/*"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-01.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-04.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-07.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-12.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-17.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-22.png",
+		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-30.png",*/
 	};
 	
 	private static ScreenshotComposer sInstance;
@@ -147,8 +156,8 @@ public class ScreenshotComposer
 			// Second, find out the max common region
 			
 			// Generate a hash string of the bitmaps
-			String hashCurrent = buildHashStringOfRegion(currentBmp, start + 40, end);
-			String hashNext = buildHashStringOfRegion(nextBmp, start + 40, end);
+			List<Long> hashCurrent = buildHashOfRegion(currentBmp, start + 40, end);
+			List<Long> hashNext = buildHashOfRegion(nextBmp, start + 40, end);
 			
 			/*if (DEBUG) {
 				Log.d(TAG, "hashCurrent = " + hashCurrent);
@@ -157,30 +166,37 @@ public class ScreenshotComposer
 			
 			int length = end - start - 40;
 			
-			String matchSub = null;
+			/*String matchSub = null;*/
+			List<Long> matchSub = null;
 			int matchLength = -1;
 			
 			for (int j = length; j > 0; j--) {
-				String hashSub = buildHashStringOfSubregion(hashNext, j);
+				List<Long> hashSub = buildHashOfSubregion(hashNext, j);
 				
-				/*if (DEBUG) {
-					Log.d(TAG, j + " subregion = " + hashSub);
-				}*/
+				int result = arrayContainsEx(hashCurrent, hashSub, 0.08f);
+				
+				if (result != -1) {
+					matchSub = hashSub;
+					matchLength = j;
+					break;
+				}
+				
+				/*String hashSub = buildHashStringOfSubregion(hashNext, j);
 				
 				if (hashCurrent.contains(hashSub)) {
 					matchSub = hashSub;
 					matchLength = j;
 					break;
-				}
+				}*/
 			}
 			
-			if (matchSub == null) {
+			/*if (matchSub == null) {
 				return null;
-			}
+			}*/
 			
-			int index = hashNext.indexOf(matchSub);
+			int index = arrayContainsEx(hashNext, matchSub, 0.0f);
 			
-			start = start + hashNext.substring(0, index).split(SEPERATOR).length - 1 + matchLength + 40;
+			start = start + index + matchLength + 40;
 			
 			if (DEBUG) {
 				Log.d(TAG, "Different region between " + i + " and " + (i + 1));
@@ -322,25 +338,24 @@ public class ScreenshotComposer
 		return hash.getValue();
 	}
 	
-	private String buildHashStringOfRegion(Bitmap bmp, int start, int end) {
-		StringBuilder sb = new StringBuilder();
+	private List<Long> buildHashOfRegion(Bitmap bmp, int start, int end) {
+		List<Long> list = new ArrayList<Long>();
 		
 		for (int i = start; i < end; i++) {
-			sb.append(getHashOfLine(bmp, i)).append(SEPERATOR);
+			list.add(getHashOfLine(bmp, i));
 		}
 		
-		return sb.toString();
+		return list;
 	}
 	
-	private String buildHashStringOfSubregion(String hash, int length) {
-		String[] strs = hash.split(SEPERATOR);
-		StringBuilder sb = new StringBuilder();
+	private List<Long> buildHashOfSubregion(List<Long> hash, int length) {
+		List<Long> list = new ArrayList<Long>();
 		
 		for (int i = 0; i < length; i++) {
-			sb.append(strs[i]).append(SEPERATOR);
+			list.add(hash.get(i));
 		}
 		
-		return sb.toString();
+		return list;
 	}
 	
 }
