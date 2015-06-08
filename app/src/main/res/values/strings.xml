@@ -11,5 +11,7 @@
 	<!-- Messages -->
 	<string name="plz_wait">Please wait...</string>
 	<string name="saved">Screenshot saved to %s</string>
+	<string name="analyzing_image" formatted="false">Analyzing image %d and %d of %d ...</string>
+	<string name="composing_image">Composing images...</string>
 	
 </resources>

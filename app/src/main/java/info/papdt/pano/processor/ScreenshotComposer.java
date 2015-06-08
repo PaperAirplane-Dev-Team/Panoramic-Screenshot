@@ -32,6 +32,11 @@ public class ScreenshotComposer
 		int endLine;
 	}
 	
+	public static interface ProgressListener {
+		void onAnalyzingImage(int i, int j, int total);
+		void onComposingImage();
+	}
+	
 	private static ScreenshotComposer sInstance;
 	
 	// Should be customizable
@@ -54,7 +59,7 @@ public class ScreenshotComposer
 		}
 	}
 	
-	public String compose(String[] images) {
+	public String compose(String[] images, ProgressListener listener) {
 		File[] files = new File[images.length];
 		
 		for (int i = 0; i < images.length; i++) {
@@ -74,16 +79,21 @@ public class ScreenshotComposer
 			}
 		}
 		
-		return compose(files);
+		return compose(files, listener);
 	}
 	
-	public String compose(File[] images) {
+	public String compose(File[] images, ProgressListener listener) {
 		Region[] regions = new Region[images.length];
 		
 		Bitmap currentBmp = null, nextBmp = null;
 		int fullHeight = 0, fullWidth = 0;
 		
 		for (int i = 0; i < images.length - 1; i++) {
+			
+			if (listener != null) {
+				listener.onAnalyzingImage(i + 1, i + 2, images.length);
+			}
+			
 			if (currentBmp == null) {
 				currentBmp = BitmapFactory.decodeFile(images[i].getAbsolutePath());
 				fullWidth = currentBmp.getWidth();
@@ -222,6 +232,10 @@ public class ScreenshotComposer
 		
 		if (DEBUG) {
 			Log.d(TAG, "fullHeight = " + fullHeight);
+		}
+		
+		if (listener != null) {
+			listener.onComposingImage();
 		}
 		
 		Bitmap out = Bitmap.createBitmap(fullWidth, fullHeight, Bitmap.Config.ARGB_8888);

@@ -17,6 +17,7 @@ import info.papdt.pano.R;
 import info.papdt.pano.processor.ScreenshotComposer;
 import info.papdt.pano.service.ScreenshotService;
 import static info.papdt.pano.BuildConfig.DEBUG;
+import java.security.*;
 
 public class ScreenshotActivity extends Activity
 {
@@ -49,7 +50,7 @@ public class ScreenshotActivity extends Activity
 		}, 0);
 	}
 	
-	private class ScreenshotTask extends AsyncTask<List<String>, Void, String> {
+	private class ScreenshotTask extends AsyncTask<List<String>, String, String> {
 		ProgressDialog prog;
 		
 		@Override
@@ -63,7 +64,23 @@ public class ScreenshotActivity extends Activity
 
 		@Override
 		protected String doInBackground(List<String>... params) {
-			return ScreenshotComposer.getInstance().compose(params[0].toArray(new String[params[0].size()]));
+			return ScreenshotComposer.getInstance().compose(params[0].toArray(new String[params[0].size()]), new ScreenshotComposer.ProgressListener() {
+				@Override
+				public void onAnalyzingImage(int i, int j, int total) {
+					publishProgress(String.format(getString(R.string.analyzing_image), i, j, total));
+				}
+				
+				@Override
+				public void onComposingImage() {
+					publishProgress(getString(R.string.composing_image));
+				}
+			});
+		}
+
+		@Override
+		protected void onProgressUpdate(String... values) {
+			super.onProgressUpdate(values);
+			prog.setMessage(values[0]);
 		}
 
 		@Override
