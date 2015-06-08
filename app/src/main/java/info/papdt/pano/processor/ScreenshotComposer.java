@@ -32,21 +32,6 @@ public class ScreenshotComposer
 		int endLine;
 	}
 	
-	// Remember we are in testing stage.
-	private static String[] TEST_SCREENSHOT_LIST = {
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-39-20.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-39-29.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-39-37.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-39-43.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-39-48.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-39-57.png",
-		/*"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-30-20.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-22-23-03.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-17.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-22.png",
-		"/sdcard/Pictures/Screenshots/Screenshot_2015-06-07-19-42-30.png",*/
-	};
-	
 	private static ScreenshotComposer sInstance;
 	
 	// Should be customizable
@@ -69,21 +54,30 @@ public class ScreenshotComposer
 		}
 	}
 	
-	public Bitmap compose(String[] images) {
+	public String compose(String[] images) {
 		File[] files = new File[images.length];
 		
 		for (int i = 0; i < images.length; i++) {
 			files[i] = new File(images[i]);
 			
+			if (DEBUG) {
+				Log.d(TAG, "Adding " + images[i]);
+			}
+			
 			if (!files[i].exists()) {
-				throw new RuntimeException("NOT EXIST?");
+				
+				if (DEBUG) {
+					Log.d(TAG, images[i] + " not exist");
+				}
+				
+				return null;
 			}
 		}
 		
 		return compose(files);
 	}
 	
-	public Bitmap compose(File[] images) {
+	public String compose(File[] images) {
 		Region[] regions = new Region[images.length];
 		
 		Bitmap currentBmp = null, nextBmp = null;
@@ -306,14 +300,7 @@ public class ScreenshotComposer
 			
 		}
 		
-		return out;
-	}
-	
-	public Bitmap test() {
-		
-		if (!DEBUG) throw new IllegalAccessError();
-		
-		return compose(TEST_SCREENSHOT_LIST);
+		return outFile.getAbsolutePath();
 	}
 	
 	// True = different

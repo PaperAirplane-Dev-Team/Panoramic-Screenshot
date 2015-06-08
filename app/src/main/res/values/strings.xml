@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Panoramic Screenshot</string>
-    <string name="hello_world">Hello world!</string>
+	<string name="app_name">Panoramic Screenshot</string>
 
+	<!-- Service notifications -->
+	<string name="notifi_first">Now, please capture the first screenshot.</string>
+	<string name="notifi_count">Take the %d(st,rd,th) screenshot.</string>
+	<string name="notifi_tip">Click this notification to finish.</string>
+	
+	<!-- Messages -->
+	<string name="plz_wait">Please wait...</string>
+	<string name="saved">Screenshot saved to %s</string>
+	
 </resources>
