@@ -1,7 +1,11 @@
 package info.papdt.pano.support;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
+import java.io.File;
 import java.util.List;
 
 import static info.papdt.pano.BuildConfig.DEBUG;
@@ -40,5 +44,11 @@ public class Utility
 		}*/
 		
 		return unmatches <= length * threshold;
+	}
+	
+	public static void notifyMediaScanner(Context context, String path) {
+		Intent i = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+		i.setData(Uri.fromFile(new File(path)));
+		context.sendBroadcast(i);
 	}
 }

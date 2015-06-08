@@ -16,8 +16,8 @@ import java.util.List;
 import info.papdt.pano.R;
 import info.papdt.pano.processor.ScreenshotComposer;
 import info.papdt.pano.service.ScreenshotService;
+import static info.papdt.pano.support.Utility.*;
 import static info.papdt.pano.BuildConfig.DEBUG;
-import java.security.*;
 
 public class ScreenshotActivity extends Activity
 {
@@ -91,6 +91,7 @@ public class ScreenshotActivity extends Activity
 			
 			if (result != null) {
 				prog.dismiss();
+				notifyMediaScanner(ScreenshotActivity.this, result);
 				Toast.makeText(
 					ScreenshotActivity.this, 
 					String.format(getString(R.string.saved), result),
