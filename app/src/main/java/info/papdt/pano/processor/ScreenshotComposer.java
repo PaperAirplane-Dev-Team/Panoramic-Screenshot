@@ -16,6 +16,7 @@ import java.util.zip.CRC32;
 
 import static info.papdt.pano.BuildConfig.DEBUG;
 import static info.papdt.pano.support.Utility.*;
+import static info.papdt.pano.support.BitmapUtility.*;
 
 /*
  * To compose a list of screenshots into one
@@ -94,12 +95,13 @@ public class ScreenshotComposer
 				listener.onAnalyzingImage(i + 1, i + 2, images.length);
 			}
 			
-			if (currentBmp == null) {
-				currentBmp = BitmapFactory.decodeFile(images[i].getAbsolutePath());
+			// Intented to use thresholding but failed. Help needed.
+			if (currentBmp == null) {	
+				currentBmp = toGrayscale(BitmapFactory.decodeFile(images[i].getAbsolutePath()));
 				fullWidth = currentBmp.getWidth();
 			}
 			
-			nextBmp = BitmapFactory.decodeFile(images[i + 1].getAbsolutePath());
+			nextBmp = toGrayscale(BitmapFactory.decodeFile(images[i + 1].getAbsolutePath()));
 			
 			if (currentBmp.getHeight() != nextBmp.getHeight()) {
 				
