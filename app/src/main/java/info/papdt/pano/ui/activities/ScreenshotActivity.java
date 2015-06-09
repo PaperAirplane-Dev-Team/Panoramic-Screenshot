@@ -19,9 +19,15 @@ import info.papdt.pano.service.ScreenshotService;
 import static info.papdt.pano.support.Utility.*;
 import static info.papdt.pano.BuildConfig.DEBUG;
 
-public class ScreenshotActivity extends Activity
+public class ScreenshotActivity extends ToolbarActivity
 {
 	private static final String TAG = ScreenshotActivity.class.getSimpleName();
+
+	@Override
+	protected int getLayoutResource() {
+		// TODO Make an unique layout
+		return R.layout.main;
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
+	<style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+		<!--<item name="android:windowActionBar">false</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="windowNoTitle">true</item>-->
+		<item name="colorPrimary">#795548</item>
+		<item name="colorPrimaryDark">#5D4037</item>
+		<item name="colorAccent">#00BCD4</item>
 	</style>
 </resources>
