@@ -4,8 +4,20 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 	
-	<include
-		layout="@layout/toolbar"/>
+	<android.support.design.widget.CoordinatorLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+	
+		<include
+			layout="@layout/toolbar"/>
+		
+		<android.support.v4.view.ViewPager
+			android:id="@+id/pager"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+	
+	</android.support.design.widget.CoordinatorLayout>
 	
 	<android.support.design.widget.FloatingActionButton
 		android:id="@+id/main_fab"
@@ -18,11 +30,5 @@
 		android:clickable="true"
 		app:borderWidth="0dp"
 		app:elevation="6dp"/>
-	
-	<FrameLayout
-		android:id="@+id/container"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_below="@+id/toolbar"/>
 	
 </RelativeLayout>

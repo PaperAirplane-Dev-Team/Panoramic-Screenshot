@@ -8,6 +8,12 @@
 	<string name="notifi_count">Take the %d(st,rd,th) screenshot.</string>
 	<string name="notifi_tip">Click this notification to finish.</string>
 	
+	<!-- Main -->
+	<string-array name="main_tabs">
+		<item>Images</item>
+		<item>About</item>
+	</string-array>
+	
 	<!-- Messages -->
 	<string name="plz_wait">Please wait...</string>
 	<string name="saved">Screenshot saved to %s</string>

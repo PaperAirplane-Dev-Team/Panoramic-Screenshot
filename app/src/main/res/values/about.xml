@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="about">
+		<![CDATA[
+		<h3>Panoramic Screenshot</h3>
+		<p>A tool that automatically merges several screenshots of a continuous list into one, which is called \"Panoramic Screenshot\" or \"Long Screenshot\".</p>
+		]]>
+	</string>
+</resources>
