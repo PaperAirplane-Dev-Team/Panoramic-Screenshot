@@ -67,6 +67,7 @@ public class ScreenshotService extends Service
 		mIntent.setClass(this, ScreenshotActivity.class);
 		
 		// Create the notification
+		// TODO Cancelling
 		mNotification = new Notification.Builder(this)
 							.setSmallIcon(android.R.color.transparent)
 							.setLargeIcon(((BitmapDrawable) getResources().getDrawable(R.drawable.ic_launcher)).getBitmap())

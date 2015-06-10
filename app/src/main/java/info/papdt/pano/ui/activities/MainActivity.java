@@ -49,6 +49,7 @@ public class MainActivity extends ToolbarActivity
 		});
 		
 		// Setup pager
+		// TODO Switch to About when no screenshots found.
 		final String[] titles = getResources().getStringArray(R.array.main_tabs);
 		mPager.setAdapter(new FragmentStatePagerAdapter(getFragmentManager()) {
 				@Override
