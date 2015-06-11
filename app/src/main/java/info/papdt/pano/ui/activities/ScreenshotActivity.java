@@ -39,6 +39,9 @@ public class ScreenshotActivity extends ToolbarActivity
 		mSettings = Settings.getInstance(this);
 		
 		// TODO: Let the user confirm
+		// TODO: Temporary settings
+		// TODO: Accept cancelling intent
+		// TODO: Finish after composing and go back to main.
 		final Intent i = new Intent(this, ScreenshotService.class);
 		bindService(i, new ServiceConnection() {
 			@Override

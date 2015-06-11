@@ -58,6 +58,7 @@ public class ImageListFragment extends BaseFragment
 		Settings settings = Settings.getInstance(getActivity());
 		mOptDir = settings.getString(Settings.OUTPUT_DIRECTORY);
 		
+		// TODO Refresh
 		new RefreshTask().execute();
 	}
 	
