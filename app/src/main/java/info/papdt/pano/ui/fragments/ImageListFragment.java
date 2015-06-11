@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import info.papdt.pano.R;
@@ -69,6 +71,13 @@ public class ImageListFragment extends BaseFragment
 					list.add(f);
 				}
 			}
+			
+			Collections.sort(list, new Comparator<File>() {
+					@Override
+					public int compare(File p1, File p2) {
+						return p1.lastModified() < p2.lastModified() ? 0 : -1;
+					}
+			});
 			
 			mFiles.clear();
 			mFiles.addAll(list);
