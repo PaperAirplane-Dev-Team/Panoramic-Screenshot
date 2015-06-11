@@ -66,6 +66,8 @@ public class ImageListFragment extends BaseFragment
 			// TODO Output path should be changeable
 			File[] files = new File("/sdcard/Pictures/Panoramic").listFiles();
 			
+			if (files == null) files = new File[0];
+			
 			for (File f : files) {
 				if (f.isFile() && f.getAbsolutePath().endsWith(".png")) {
 					list.add(f);
