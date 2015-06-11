@@ -14,6 +14,7 @@ import info.papdt.pano.R;
 import info.papdt.pano.service.ScreenshotService;
 import info.papdt.pano.ui.fragments.AboutFragment;
 import info.papdt.pano.ui.fragments.ImageListFragment;
+import info.papdt.pano.ui.fragments.SettingsFragment;
 import static info.papdt.pano.ui.util.UiUtility.*;
 
 public class MainActivity extends ToolbarActivity
@@ -21,6 +22,7 @@ public class MainActivity extends ToolbarActivity
 	
 	private Fragment[] mFragments = {
 		new ImageListFragment(),
+		new SettingsFragment(),
 		new AboutFragment(),
 	};
 	

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.papdt.pano.R;
+import info.papdt.pano.support.Settings;
 import info.papdt.pano.ui.activities.ScreenshotActivity;
 import static info.papdt.pano.BuildConfig.DEBUG;
 
@@ -27,13 +28,12 @@ public class ScreenshotService extends Service
 	public static final String ACTION_SCREENSHOT = "info.papdt.pano.action.TAKE_SCREENSHOT";
 	public static final String EXTRA_PATHS = "paths";
 	
-	// TODO Make this changeable
-	private static final String SCREENSHOT_DIR = "/sdcard/Pictures/Screenshots";
-	
 	private Intent mIntent = null;
 	private Notification mNotification = null;
 	private NotificationManager mNotificationManager = null;
 	private ScreenshotObserver mObserver = null;
+	private String mScreenshotDir;
+	private Settings mSettings;
 	
 	private List<String> mFiles = null;
 	
@@ -80,6 +80,10 @@ public class ScreenshotService extends Service
 		
 		mFiles = new ArrayList<>();
 		
+		// Settings
+		mSettings = Settings.getInstance(this);
+		mScreenshotDir = mSettings.getString(Settings.SCREENSHOT_DIRECTORY);
+		
 		mObserver = new ScreenshotObserver();
 		mObserver.startWatching();
 							
@@ -97,7 +101,7 @@ public class ScreenshotService extends Service
 	private class ScreenshotObserver extends FileObserver {
 		public ScreenshotObserver() {
 			// TODO: The path should be changable
-			super(SCREENSHOT_DIR, FileObserver.CREATE);
+			super(mScreenshotDir, FileObserver.CREATE);
 		}
 
 		@Override
@@ -105,7 +109,7 @@ public class ScreenshotService extends Service
 			if (event != FileObserver.CREATE) return;
 			
 			if (path.endsWith(".png")) {
-				String file = SCREENSHOT_DIR + "/" + path;
+				String file = mScreenshotDir + "/" + path;
 				mFiles.add(file);
 				
 				if (DEBUG) {

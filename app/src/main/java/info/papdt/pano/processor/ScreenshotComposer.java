@@ -40,7 +40,6 @@ public class ScreenshotComposer
 	
 	private static ScreenshotComposer sInstance;
 	
-	// Should be customizable
 	private String mOutDir = "/sdcard/Pictures/Panoramic";
 	
 	public static final ScreenshotComposer getInstance() {
@@ -52,6 +51,11 @@ public class ScreenshotComposer
 	}
 	
 	private ScreenshotComposer() {
+		
+	}
+	
+	public void setOutputDir(String opt) {
+		mOutDir = opt;
 		
 		File out = new File(mOutDir);
 		if (!out.exists()) {

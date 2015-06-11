@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<PreferenceCategory
+		android:title="@string/paths">
+		
+		<Preference
+			android:key="screenshot_directory"
+			android:title="@string/screenshot_directory"/>
+		
+		<Preference
+			android:key="output_directory"
+			android:title="@string/output_directory"/>
+		
+	</PreferenceCategory>
+	
+</PreferenceScreen>

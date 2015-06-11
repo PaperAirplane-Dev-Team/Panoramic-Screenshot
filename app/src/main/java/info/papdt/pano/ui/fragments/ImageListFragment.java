@@ -14,6 +14,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import info.papdt.pano.R;
+import info.papdt.pano.support.Settings;
 import info.papdt.pano.ui.adapter.ImageAdapter;
 import static info.papdt.pano.ui.util.UiUtility.*;
 
@@ -23,6 +24,7 @@ public class ImageListFragment extends BaseFragment
 	private List<File> mFiles = new ArrayList<>();
 	private ImageAdapter mAdapter;
 	private GridLayoutManager mManager;
+	private String mOptDir;
 	
 	@Override
 	protected int getLayoutResource() {
@@ -53,6 +55,9 @@ public class ImageListFragment extends BaseFragment
 		mRecycler.setLayoutManager(mManager);
 		mRecycler.setAdapter(mAdapter);
 		
+		Settings settings = Settings.getInstance(getActivity());
+		mOptDir = settings.getString(Settings.OUTPUT_DIRECTORY);
+		
 		new RefreshTask().execute();
 	}
 	
@@ -64,7 +69,7 @@ public class ImageListFragment extends BaseFragment
 			List<File> list = new ArrayList<>();
 			
 			// TODO Output path should be changeable
-			File[] files = new File("/sdcard/Pictures/Panoramic").listFiles();
+			File[] files = new File(mOptDir).listFiles();
 			
 			if (files == null) files = new File[0];
 			

@@ -11,8 +11,14 @@
 	<!-- Main -->
 	<string-array name="main_tabs">
 		<item>Images</item>
+		<item>Settings</item>
 		<item>About</item>
 	</string-array>
+	
+	<!-- Settings -->
+	<string name="paths">Paths</string>
+	<string name="screenshot_directory">Screenshot Directory</string>
+	<string name="output_directory">Output Directory</string>
 	
 	<!-- Messages -->
 	<string name="plz_wait">Please wait...</string>

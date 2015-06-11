@@ -16,6 +16,7 @@ import java.util.List;
 import info.papdt.pano.R;
 import info.papdt.pano.processor.ScreenshotComposer;
 import info.papdt.pano.service.ScreenshotService;
+import info.papdt.pano.support.Settings;
 import static info.papdt.pano.support.Utility.*;
 import static info.papdt.pano.BuildConfig.DEBUG;
 
@@ -23,6 +24,8 @@ public class ScreenshotActivity extends ToolbarActivity
 {
 	private static final String TAG = ScreenshotActivity.class.getSimpleName();
 
+	private Settings mSettings;
+	
 	@Override
 	protected int getLayoutResource() {
 		// TODO Make an unique layout
@@ -32,6 +35,8 @@ public class ScreenshotActivity extends ToolbarActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		mSettings = Settings.getInstance(this);
 		
 		// TODO: Let the user confirm
 		final Intent i = new Intent(this, ScreenshotService.class);
@@ -58,6 +63,7 @@ public class ScreenshotActivity extends ToolbarActivity
 	
 	private class ScreenshotTask extends AsyncTask<List<String>, String, String> {
 		ProgressDialog prog;
+		String opt;
 		
 		@Override
 		protected void onPreExecute() {
@@ -66,11 +72,15 @@ public class ScreenshotActivity extends ToolbarActivity
 			prog.setMessage(getString(R.string.plz_wait));
 			prog.setCancelable(false);
 			prog.show();
+			
+			opt = mSettings.getString(Settings.OUTPUT_DIRECTORY);
 		}
 
 		@Override
 		protected String doInBackground(List<String>... params) {
-			return ScreenshotComposer.getInstance().compose(params[0].toArray(new String[params[0].size()]), new ScreenshotComposer.ProgressListener() {
+			ScreenshotComposer composer = ScreenshotComposer.getInstance();
+			composer.setOutputDir(opt);
+			return composer.compose(params[0].toArray(new String[params[0].size()]), new ScreenshotComposer.ProgressListener() {
 				@Override
 				public void onAnalyzingImage(int i, int j, int total) {
 					publishProgress(String.format(getString(R.string.analyzing_image), i, j, total));
