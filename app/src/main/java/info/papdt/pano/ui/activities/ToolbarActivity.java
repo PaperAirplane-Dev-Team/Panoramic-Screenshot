@@ -3,7 +3,10 @@ package info.papdt.pano.ui.activities;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -22,6 +25,7 @@ public abstract class ToolbarActivity extends AppCompatActivity
 	protected AppBarLayout mAppBar;
 	protected Toolbar mToolbar;
 	protected TabLayout mTabLayout;
+	protected boolean isHidden = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,29 @@ public abstract class ToolbarActivity extends AppCompatActivity
 			mAppBar.setElevation(10.6f);
 		}
 		
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
+			return true;
+		} else {
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	protected void setAppBarAlpha(float alpha) {
+		mAppBar.setAlpha(alpha);
+	}
+	
+	protected void hideOrShowToolbar() {
+		mAppBar.animate()
+			.translationY(isHidden ? 0 : -mAppBar.getHeight())
+			.setInterpolator(new DecelerateInterpolator(2))
+			.start();
+		
+		isHidden = !isHidden;
 	}
 	
 	protected void setupTabs(ViewPager pager) {

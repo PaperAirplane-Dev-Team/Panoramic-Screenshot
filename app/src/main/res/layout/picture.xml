@@ -1,0 +1,15 @@
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/black">
+    
+	<include
+		layout="@layout/toolbar"/>
+	
+	<com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+		android:id="@+id/picture"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"/>
+	
+</RelativeLayout>
