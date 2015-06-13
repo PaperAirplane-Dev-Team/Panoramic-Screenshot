@@ -7,6 +7,7 @@
 	<string name="notifi_first">Now, please capture the first screenshot.</string>
 	<string name="notifi_count">Take the %d(st,rd,th) screenshot.</string>
 	<string name="notifi_tip">Click this notification to finish.</string>
+	<string name="cancel">Cancel</string>
 	
 	<!-- Main -->
 	<string-array name="main_tabs">

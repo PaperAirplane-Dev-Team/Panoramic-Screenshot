@@ -38,6 +38,9 @@ public class MainActivity extends ToolbarActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		// Cancel the ongoing notification
+		stopService(new Intent(this, ScreenshotService.class));
+		
 		mPager = $(this, R.id.pager);
 		mFAB = $(this, R.id.main_fab);
 		

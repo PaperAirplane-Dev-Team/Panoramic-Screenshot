@@ -17,6 +17,7 @@ import java.util.List;
 
 import info.papdt.pano.R;
 import info.papdt.pano.support.Settings;
+import info.papdt.pano.ui.activities.MainActivity;
 import info.papdt.pano.ui.activities.ScreenshotActivity;
 import static info.papdt.pano.BuildConfig.DEBUG;
 
@@ -66,15 +67,18 @@ public class ScreenshotService extends Service
 		mIntent = new Intent(ACTION_SCREENSHOT);
 		mIntent.setClass(this, ScreenshotActivity.class);
 		
+		// The cancelling intent
+		Intent cancel = new Intent(this, MainActivity.class);
+		
 		// Create the notification
-		// TODO Cancelling
 		mNotification = new Notification.Builder(this)
 							.setSmallIcon(android.R.color.transparent)
 							.setLargeIcon(((BitmapDrawable) getResources().getDrawable(R.drawable.ic_launcher)).getBitmap())
 							.setContentTitle(getString(R.string.app_name))
 							.setContentText(getString(R.string.notifi_first))
 							//.setSubText(getString(R.string.notifi_tip))
-							.setPriority(Notification.PRIORITY_DEFAULT)
+							.addAction(android.R.color.transparent, getString(R.string.cancel), PendingIntent.getActivity(this, 0, cancel, 0))
+							.setPriority(Notification.PRIORITY_MAX)
 							.build();
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		
