@@ -72,7 +72,7 @@ public class ScreenshotService extends Service
 		
 		// Create the notification
 		mNotification = new Notification.Builder(this)
-							.setSmallIcon(android.R.color.transparent)
+							.setSmallIcon(R.drawable.ic_receipt_white_18dp)
 							.setLargeIcon(((BitmapDrawable) getResources().getDrawable(R.drawable.ic_launcher)).getBitmap())
 							.setContentTitle(getString(R.string.app_name))
 							.setContentText(getString(R.string.notifi_first))
