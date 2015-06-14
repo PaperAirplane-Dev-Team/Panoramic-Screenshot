@@ -59,9 +59,7 @@ public class ScreenshotActivity extends ToolbarActivity
 		
 		mFragment = new TempSettingsFragment();
 		
-		// TODO: Let the user confirm
-		// TODO: Temporary settings
-		// TODO: Finish after composing and go back to main.
+		// TODO Preview after composing, should be able to re-do
 		final Intent i = new Intent(this, ScreenshotService.class);
 		bindService(i, new ServiceConnection() {
 			@Override
@@ -104,6 +102,7 @@ public class ScreenshotActivity extends ToolbarActivity
 		protected String doInBackground(List<String>... params) {
 			ScreenshotComposer composer = ScreenshotComposer.getInstance();
 			composer.setOutputDir((String) settings.get(Settings.OUTPUT_DIRECTORY));
+			composer.setThreshold(((int) settings.get(Settings.MATCHING_THRESHOLD)) / 100.0f);
 			return composer.compose(params[0].toArray(new String[params[0].size()]), new ScreenshotComposer.ProgressListener() {
 				@Override
 				public void onAnalyzingImage(int i, int j, int total) {

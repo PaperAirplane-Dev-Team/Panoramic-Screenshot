@@ -41,6 +41,7 @@ public class ScreenshotComposer
 	private static ScreenshotComposer sInstance;
 	
 	private String mOutDir = "/sdcard/Pictures/Panoramic";
+	private float mThreshold = 0.08f;
 	
 	public static final ScreenshotComposer getInstance() {
 		if (sInstance == null) {
@@ -62,6 +63,13 @@ public class ScreenshotComposer
 			out.mkdirs();
 			out.mkdir();
 		}
+	}
+	
+	public void setThreshold(float threshold) {
+		if (threshold > 1 || threshold < 0)
+			throw new IllegalArgumentException("illegal threshold");
+		
+		mThreshold = threshold;
 	}
 	
 	public String compose(String[] images, ProgressListener listener) {
@@ -183,7 +191,7 @@ public class ScreenshotComposer
 			for (int j = length; j > 0; j--) {
 				List<Long> hashSub = buildHashOfSubregion(hashNext, j);
 				
-				int result = arrayContainsEx(hashCurrent, hashSub, 0.08f);
+				int result = arrayContainsEx(hashCurrent, hashSub, mThreshold);
 				
 				if (result != -1) {
 					matchSub = hashSub;
@@ -332,7 +340,8 @@ public class ScreenshotComposer
 			}
 		}
 		
-		return diff > 4;
+		return diff > 4 * (mThreshold / 0.8f); // 4 is for input boxes.
+		// TODO: Use dp instead of px
 	}
 	
 	private long getHashOfLine(Bitmap bmp, int line) {

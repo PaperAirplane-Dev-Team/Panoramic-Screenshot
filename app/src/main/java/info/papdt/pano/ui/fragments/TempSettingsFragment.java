@@ -33,6 +33,7 @@ public class TempSettingsFragment extends SettingsFragment
 		
 		map.put(Settings.SCREENSHOT_DIRECTORY, mShotDir.getSummary());
 		map.put(Settings.OUTPUT_DIRECTORY, mOptDir.getSummary());
+		map.put(Settings.MATCHING_THRESHOLD, mMatchingThreshold.getValue());
 		
 		return map;
 	}

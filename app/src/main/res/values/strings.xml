@@ -21,6 +21,9 @@
 	<string name="paths">Paths</string>
 	<string name="screenshot_directory">Screenshot Directory</string>
 	<string name="output_directory">Output Directory</string>
+	<string name="analyzing_options">Analyzing Options</string>
+	<string name="matching_threshold">Matching Threshold</string>
+	<string name="matching_threshold_sum">If parts of two image have a different percentage less than this value, count the two part as the same. Used to ignore slight differences.</string>
 	
 	<!-- Messages -->
 	<string name="plz_wait">Please wait...</string>

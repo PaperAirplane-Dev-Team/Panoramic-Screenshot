@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 	
 	<PreferenceCategory
 		android:title="@string/paths">
@@ -12,6 +13,19 @@
 		<Preference
 			android:key="output_directory"
 			android:title="@string/output_directory"/>
+		
+	</PreferenceCategory>
+	
+	<PreferenceCategory
+		android:title="@string/analyzing_options">
+		
+		<info.papdt.pano.ui.preference.DiscreteSeekBarPreference
+			android:key="matching_threshold"
+			android:title="@string/matching_threshold"
+			android:summary="@string/matching_threshold_sum"
+			app:dsbp_max="20"
+			app:dsbp_min="0"
+			app:dsbp_format="%d%%"/>
 		
 	</PreferenceCategory>
 	

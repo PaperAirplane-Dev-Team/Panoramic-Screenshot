@@ -14,6 +14,7 @@ public class Settings
 	
 	public static final String SCREENSHOT_DIRECTORY = "screenshot_directory";
 	public static final String OUTPUT_DIRECTORY = "output_directory";
+	public static final String MATCHING_THRESHOLD = "matching_threshold";
 	
 	private static Settings sInstance;
 	
@@ -22,6 +23,7 @@ public class Settings
 	static {
 		DEFAULTS.put(SCREENSHOT_DIRECTORY, "/sdcard/Pictures/Screenshots");
 		DEFAULTS.put(OUTPUT_DIRECTORY, "/sdcard/Pictures/Panoramic");
+		DEFAULTS.put(MATCHING_THRESHOLD, 8);
 	}
 	
 	public static final Settings getInstance(Context context) {
@@ -46,6 +48,15 @@ public class Settings
 	
 	public Settings putString(String key, String value) {
 		mPref.edit().putString(key, value).commit();
+		return this;
+	}
+	
+	public int getInt(String key) {
+		return mPref.getInt(key, getDefault(key, int.class));
+	}
+	
+	public Settings putInt(String key, int value) {
+		mPref.edit().putInt(key, value).commit();
 		return this;
 	}
 }

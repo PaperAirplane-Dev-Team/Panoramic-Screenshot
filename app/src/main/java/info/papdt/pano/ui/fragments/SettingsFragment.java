@@ -8,6 +8,7 @@ import com.nononsenseapps.filepicker.FilePickerActivity;
 
 import info.papdt.pano.R;
 import info.papdt.pano.support.Settings;
+import info.papdt.pano.ui.preference.DiscreteSeekBarPreference;
 import static info.papdt.pano.ui.util.UiUtility.*;
 
 public class SettingsFragment extends BasePreferenceFragment
@@ -19,6 +20,7 @@ public class SettingsFragment extends BasePreferenceFragment
 	
 	protected Preference mShotDir;
 	protected Preference mOptDir;
+	protected DiscreteSeekBarPreference mMatchingThreshold;
 	
 	@Override
 	protected int getPreferenceResource() {
@@ -31,10 +33,11 @@ public class SettingsFragment extends BasePreferenceFragment
 		
 		mShotDir = $(this, Settings.SCREENSHOT_DIRECTORY);
 		mOptDir = $(this, Settings.OUTPUT_DIRECTORY);
+		mMatchingThreshold = $(this, Settings.MATCHING_THRESHOLD);
 		
 		reload();
 		
-		register(mShotDir, mOptDir);
+		register(mShotDir, mOptDir, mMatchingThreshold);
 	}
 
 	@Override
@@ -51,9 +54,15 @@ public class SettingsFragment extends BasePreferenceFragment
 	}
 
 	@Override
-	public boolean onPreferenceChange(Preference p1, Object p2) {
-		// TODO: Implement this method
-		return false;
+	public boolean onPreferenceChange(Preference preference, Object newValue) {
+		if (preference == mMatchingThreshold) {
+			mSettings.putInt(
+				Settings.MATCHING_THRESHOLD,
+				(int) newValue);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -72,6 +81,7 @@ public class SettingsFragment extends BasePreferenceFragment
 	private void reload() {
 		mShotDir.setSummary(mSettings.getString(Settings.SCREENSHOT_DIRECTORY));
 		mOptDir.setSummary(mSettings.getString(Settings.OUTPUT_DIRECTORY));
+		mMatchingThreshold.setValue(mSettings.getInt(Settings.MATCHING_THRESHOLD));
 	}
 	
 	private void startChooser(int code) {
