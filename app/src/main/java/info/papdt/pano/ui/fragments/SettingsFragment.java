@@ -17,8 +17,8 @@ public class SettingsFragment extends BasePreferenceFragment
 	
 	private Settings mSettings;
 	
-	private Preference mShotDir;
-	private Preference mOptDir;
+	protected Preference mShotDir;
+	protected Preference mOptDir;
 	
 	@Override
 	protected int getPreferenceResource() {

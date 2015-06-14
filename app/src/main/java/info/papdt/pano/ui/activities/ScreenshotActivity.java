@@ -9,15 +9,21 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import android.support.design.widget.FloatingActionButton;
+
 import java.util.List;
+import java.util.Map;
 
 import info.papdt.pano.R;
 import info.papdt.pano.processor.ScreenshotComposer;
 import info.papdt.pano.service.ScreenshotService;
 import info.papdt.pano.support.Settings;
+import info.papdt.pano.ui.fragments.TempSettingsFragment;
 import static info.papdt.pano.support.Utility.*;
+import static info.papdt.pano.ui.util.UiUtility.*;
 import static info.papdt.pano.BuildConfig.DEBUG;
 
 public class ScreenshotActivity extends ToolbarActivity
@@ -25,31 +31,46 @@ public class ScreenshotActivity extends ToolbarActivity
 	private static final String TAG = ScreenshotActivity.class.getSimpleName();
 
 	private Settings mSettings;
+	private TempSettingsFragment mFragment;
+	private List<String> mFiles;
+	private FloatingActionButton mFAB;
 	
 	@Override
 	protected int getLayoutResource() {
-		// TODO Make an unique layout
-		return R.layout.main;
+		return R.layout.screenshot;
 	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		mFAB = $(this, R.id.shot_fab);
+		mFAB.setVisibility(View.GONE);
+		mFAB.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				new ScreenshotTask().execute(mFiles);
+			}
+		});
+		
 		mSettings = Settings.getInstance(this);
+		
+		mFragment = new TempSettingsFragment();
 		
 		// TODO: Let the user confirm
 		// TODO: Temporary settings
-		// TODO: Accept cancelling intent
 		// TODO: Finish after composing and go back to main.
 		final Intent i = new Intent(this, ScreenshotService.class);
 		bindService(i, new ServiceConnection() {
 			@Override
 			public void onServiceConnected(ComponentName name, IBinder binder) {
-				List<String> files = ((ScreenshotService.ScreenshotBinder) binder).getFiles();
+				mFiles = ((ScreenshotService.ScreenshotBinder) binder).getFiles();
 				
-				if (files != null && files.size() > 0) {
-					new ScreenshotTask().execute(files);
+				if (mFiles != null && mFiles.size() > 0) {
+					getFragmentManager().beginTransaction().replace(R.id.frame, mFragment).commit();
+					mFAB.setVisibility(View.VISIBLE);
 				} else {
 					// If null?
 				}
@@ -66,7 +87,7 @@ public class ScreenshotActivity extends ToolbarActivity
 	
 	private class ScreenshotTask extends AsyncTask<List<String>, String, String> {
 		ProgressDialog prog;
-		String opt;
+		Map<String, Object> settings;
 		
 		@Override
 		protected void onPreExecute() {
@@ -76,13 +97,13 @@ public class ScreenshotActivity extends ToolbarActivity
 			prog.setCancelable(false);
 			prog.show();
 			
-			opt = mSettings.getString(Settings.OUTPUT_DIRECTORY);
+			settings = mFragment.getSettings();
 		}
 
 		@Override
 		protected String doInBackground(List<String>... params) {
 			ScreenshotComposer composer = ScreenshotComposer.getInstance();
-			composer.setOutputDir(opt);
+			composer.setOutputDir((String) settings.get(Settings.OUTPUT_DIRECTORY));
 			return composer.compose(params[0].toArray(new String[params[0].size()]), new ScreenshotComposer.ProgressListener() {
 				@Override
 				public void onAnalyzingImage(int i, int j, int total) {
@@ -106,16 +127,23 @@ public class ScreenshotActivity extends ToolbarActivity
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
 			
-			prog.dismiss();
-			
 			if (result != null) {
-				prog.dismiss();
 				notifyMediaScanner(ScreenshotActivity.this, result);
 				Toast.makeText(
 					ScreenshotActivity.this, 
 					String.format(getString(R.string.saved), result),
 					Toast.LENGTH_LONG).show();
+				
+				mFAB.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						prog.dismiss();
+						finish();
+					}
+				}, 1000);
 			} else {
+				prog.dismiss();
+				finish();
 				// If null?
 			}
 		}

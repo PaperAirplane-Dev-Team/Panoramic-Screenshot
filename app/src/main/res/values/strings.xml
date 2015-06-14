@@ -17,6 +17,7 @@
 	</string-array>
 	
 	<!-- Settings -->
+	<string name="shot_settings">Screenshot Settings</string>
 	<string name="paths">Paths</string>
 	<string name="screenshot_directory">Screenshot Directory</string>
 	<string name="output_directory">Output Directory</string>
