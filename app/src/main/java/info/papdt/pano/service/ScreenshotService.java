@@ -67,19 +67,8 @@ public class ScreenshotService extends Service
 		mIntent = new Intent(ACTION_SCREENSHOT);
 		mIntent.setClass(this, ScreenshotActivity.class);
 		
-		// The cancelling intent
-		Intent cancel = new Intent(this, MainActivity.class);
-		
 		// Create the notification
-		mNotification = new Notification.Builder(this)
-							.setSmallIcon(R.drawable.ic_receipt_white_18dp)
-							.setLargeIcon(((BitmapDrawable) getResources().getDrawable(R.drawable.ic_launcher)).getBitmap())
-							.setContentTitle(getString(R.string.app_name))
-							.setContentText(getString(R.string.notifi_first))
-							//.setSubText(getString(R.string.notifi_tip))
-							.addAction(android.R.color.transparent, getString(R.string.cancel), PendingIntent.getActivity(this, 0, cancel, 0))
-							.setPriority(Notification.PRIORITY_MAX)
-							.build();
+		rebuildNotification(null, getString(R.string.notifi_first), null);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		
 		mFiles = new ArrayList<>();
@@ -90,10 +79,27 @@ public class ScreenshotService extends Service
 		
 		mObserver = new ScreenshotObserver();
 		mObserver.startWatching();
-							
+		
+		mNotificationManager.notify(R.drawable.ic_launcher, mNotification);		
 		startForeground(R.drawable.ic_launcher, mNotification);
 		
 		return super.onStartCommand(intent, flags, startId);
+	}
+	
+	private void rebuildNotification(PendingIntent intent, String message, String subText) {
+		// The cancelling intent
+		Intent cancel = new Intent(this, MainActivity.class);
+		
+		mNotification = new Notification.Builder(this)
+			.setSmallIcon(R.drawable.ic_receipt_white_18dp)
+			.setLargeIcon(((BitmapDrawable) getResources().getDrawable(R.drawable.ic_launcher)).getBitmap())
+			.setContentTitle(getString(R.string.app_name))
+			.setContentText(message)
+			.setSubText(subText)
+			.setContentIntent(intent)
+			.addAction(android.R.color.transparent, getString(R.string.cancel), PendingIntent.getActivity(this, 0, cancel, 0))
+			.setPriority(Notification.PRIORITY_MAX)
+			.build();
 	}
 	
 	public class ScreenshotBinder extends Binder {
@@ -124,13 +130,7 @@ public class ScreenshotService extends Service
 				
 				PendingIntent i = PendingIntent.getActivity(ScreenshotService.this, 0, mIntent, 0);
 				
-				mNotification.setLatestEventInfo(
-					ScreenshotService.this,
-					getString(R.string.app_name),
-					String.format(getString(R.string.notifi_count), mFiles.size() + 1),
-					i);
-				
-				mNotification.extras.putString(Notification.EXTRA_SUB_TEXT, getString(R.string.notifi_tip));
+				rebuildNotification(i, String.format(getString(R.string.notifi_count), mFiles.size() + 1), getString(R.string.notifi_tip));
 				
 				mNotificationManager.notify(R.drawable.ic_launcher, mNotification);
 			}
