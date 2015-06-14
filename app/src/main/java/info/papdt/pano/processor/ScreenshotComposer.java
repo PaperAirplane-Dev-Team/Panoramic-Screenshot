@@ -340,7 +340,7 @@ public class ScreenshotComposer
 			}
 		}
 		
-		return diff > 4 * (mThreshold / 0.8f); // 4 is for input boxes.
+		return diff > 4.0f * (mThreshold / 0.08f); // 4 is for input boxes.
 		// TODO: Use dp instead of px
 	}
 	
