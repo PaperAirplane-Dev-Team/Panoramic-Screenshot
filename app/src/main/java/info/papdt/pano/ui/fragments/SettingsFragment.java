@@ -21,6 +21,7 @@ public class SettingsFragment extends BasePreferenceFragment
 	protected Preference mShotDir;
 	protected Preference mOptDir;
 	protected DiscreteSeekBarPreference mMatchingThreshold;
+	protected DiscreteSeekBarPreference mTopShadow;
 	
 	@Override
 	protected int getPreferenceResource() {
@@ -34,10 +35,11 @@ public class SettingsFragment extends BasePreferenceFragment
 		mShotDir = $(this, Settings.SCREENSHOT_DIRECTORY);
 		mOptDir = $(this, Settings.OUTPUT_DIRECTORY);
 		mMatchingThreshold = $(this, Settings.MATCHING_THRESHOLD);
+		mTopShadow = $(this, Settings.TOP_SHADOW_DEPTH);
 		
 		reload();
 		
-		register(mShotDir, mOptDir, mMatchingThreshold);
+		register(mShotDir, mOptDir, mMatchingThreshold, mTopShadow);
 	}
 
 	@Override
@@ -58,6 +60,11 @@ public class SettingsFragment extends BasePreferenceFragment
 		if (preference == mMatchingThreshold) {
 			mSettings.putInt(
 				Settings.MATCHING_THRESHOLD,
+				(int) newValue);
+			return true;
+		} else if (preference == mTopShadow) {
+			mSettings.putInt(
+				Settings.TOP_SHADOW_DEPTH,
 				(int) newValue);
 			return true;
 		} else {
@@ -82,6 +89,7 @@ public class SettingsFragment extends BasePreferenceFragment
 		mShotDir.setSummary(mSettings.getString(Settings.SCREENSHOT_DIRECTORY));
 		mOptDir.setSummary(mSettings.getString(Settings.OUTPUT_DIRECTORY));
 		mMatchingThreshold.setValue(mSettings.getInt(Settings.MATCHING_THRESHOLD));
+		mTopShadow.setValue(mSettings.getInt(Settings.TOP_SHADOW_DEPTH));
 	}
 	
 	private void startChooser(int code) {

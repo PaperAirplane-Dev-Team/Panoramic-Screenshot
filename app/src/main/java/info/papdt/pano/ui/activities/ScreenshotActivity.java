@@ -106,6 +106,7 @@ public class ScreenshotActivity extends ToolbarActivity
 			composer.setOutputDir((String) settings.get(Settings.OUTPUT_DIRECTORY));
 			composer.setThreshold(((int) settings.get(Settings.MATCHING_THRESHOLD)) / 100.0f);
 			composer.setStatusBarHeight(statusHeight);
+			composer.setShadowHeight(dp2pxY(ScreenshotActivity.this, (int) settings.get(Settings.TOP_SHADOW_DEPTH)));
 			return composer.compose(params[0].toArray(new String[params[0].size()]), new ScreenshotComposer.ProgressListener() {
 				@Override
 				public void onAnalyzingImage(int i, int j, int total) {

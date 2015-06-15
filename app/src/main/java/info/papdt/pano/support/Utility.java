@@ -3,6 +3,7 @@ package info.papdt.pano.support;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import java.io.File;
@@ -61,5 +62,11 @@ public class Utility
 		}
 		
 		return result;
+	}
+	
+	public static int dp2pxY(Context context, int dip) {
+		DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+		int px = Math.round(dip * (displayMetrics.ydpi / 160.0f));       
+		return px;
 	}
 }

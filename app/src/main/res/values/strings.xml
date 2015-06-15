@@ -24,6 +24,8 @@
 	<string name="analyzing_options">Analyzing Options</string>
 	<string name="matching_threshold">Matching Threshold</string>
 	<string name="matching_threshold_sum">If parts of two image have a different percentage less than this value, count the two part as the same. Used to ignore slight differences.</string>
+	<string name="top_shadow_depth">Depth of Shadow at Top</string>
+	<string name="top_shadow_depth_sum">If an app has an extremely deep shadow at the top (below the title bar or toolbar or actionbar) which is not very usual, please increase this value. Set this to 0 if the screenshoted app has no or little little shadow at top. The default value is recommended for most circumstances.</string>
 	
 	<!-- Messages -->
 	<string name="plz_wait">Please wait...</string>

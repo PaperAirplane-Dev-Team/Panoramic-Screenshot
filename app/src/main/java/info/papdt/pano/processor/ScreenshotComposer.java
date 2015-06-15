@@ -43,6 +43,7 @@ public class ScreenshotComposer
 	private String mOutDir = "/sdcard/Pictures/Panoramic";
 	private float mThreshold = 0.08f;
 	private int mStatusBarHeight = 40; // px
+	private int mShadowHeight = 10; // px
 	
 	public static final ScreenshotComposer getInstance() {
 		if (sInstance == null) {
@@ -75,6 +76,14 @@ public class ScreenshotComposer
 	
 	public void setStatusBarHeight(int height) {
 		mStatusBarHeight = height;
+	}
+	
+	public void setShadowHeight(int height) {
+		mShadowHeight = height;
+		
+		if (DEBUG) {
+			Log.d(TAG, "shadow height " + mShadowHeight);
+		}
 	}
 	
 	public String compose(String[] images, ProgressListener listener) {
@@ -178,15 +187,15 @@ public class ScreenshotComposer
 			// Second, find out the max common region
 			
 			// Generate a hash string of the bitmaps
-			List<Long> hashCurrent = buildHashOfRegion(currentBmp, start + 40, end);
-			List<Long> hashNext = buildHashOfRegion(nextBmp, start + 40, end);
+			List<Long> hashCurrent = buildHashOfRegion(currentBmp, start + mShadowHeight, end);
+			List<Long> hashNext = buildHashOfRegion(nextBmp, start + mShadowHeight, end);
 			
 			/*if (DEBUG) {
 				Log.d(TAG, "hashCurrent = " + hashCurrent);
 				Log.d(TAG, "hashNext = " + hashNext);
 			}*/
 			
-			int length = end - start - 40;
+			int length = end - start - mShadowHeight - 1;
 			
 			/*String matchSub = null;*/
 			List<Long> matchSub = null;
@@ -218,7 +227,7 @@ public class ScreenshotComposer
 			
 			int index = arrayContainsEx(hashNext, matchSub, 0.0f);
 			
-			start = start + index + matchLength + 40;
+			start = start + index + matchLength + mShadowHeight + 1;
 			
 			if (DEBUG) {
 				Log.d(TAG, "Different region between " + i + " and " + (i + 1));

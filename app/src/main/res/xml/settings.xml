@@ -27,6 +27,14 @@
 			app:dsbp_min="0"
 			app:dsbp_format="%d%%"/>
 		
+		<info.papdt.pano.ui.preference.DiscreteSeekBarPreference
+			android:key="top_shadow_depth"
+			android:title="@string/top_shadow_depth"
+			android:summary="@string/top_shadow_depth_sum"
+			app:dsbp_max="100"
+			app:dsbp_min="0"
+			app:dsbp_format="%d"/>
+		
 	</PreferenceCategory>
 	
 </PreferenceScreen>

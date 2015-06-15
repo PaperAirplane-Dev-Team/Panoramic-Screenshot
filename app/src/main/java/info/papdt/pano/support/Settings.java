@@ -15,6 +15,7 @@ public class Settings
 	public static final String SCREENSHOT_DIRECTORY = "screenshot_directory";
 	public static final String OUTPUT_DIRECTORY = "output_directory";
 	public static final String MATCHING_THRESHOLD = "matching_threshold";
+	public static final String TOP_SHADOW_DEPTH = "top_shadow_depth";
 	
 	private static Settings sInstance;
 	
@@ -24,6 +25,8 @@ public class Settings
 		DEFAULTS.put(SCREENSHOT_DIRECTORY, "/sdcard/Pictures/Screenshots");
 		DEFAULTS.put(OUTPUT_DIRECTORY, "/sdcard/Pictures/Panoramic");
 		DEFAULTS.put(MATCHING_THRESHOLD, 8);
+		DEFAULTS.put(TOP_SHADOW_DEPTH, 10);
+		
 	}
 	
 	public static final Settings getInstance(Context context) {
