@@ -37,4 +37,15 @@
 		
 	</PreferenceCategory>
 	
+	<PreferenceCategory
+		android:title="@string/version">
+		
+		<Preference
+			android:key="app_version"
+			android:title="@string/app_version"/>
+		
+	</PreferenceCategory>
+	
+	<Preference/> <!--HACK: Fix strange display in MainActivity-->
+	
 </PreferenceScreen>

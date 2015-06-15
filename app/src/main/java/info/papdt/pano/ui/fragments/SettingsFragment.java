@@ -22,6 +22,7 @@ public class SettingsFragment extends BasePreferenceFragment
 	protected Preference mOptDir;
 	protected DiscreteSeekBarPreference mMatchingThreshold;
 	protected DiscreteSeekBarPreference mTopShadow;
+	protected Preference mVersion;
 	
 	@Override
 	protected int getPreferenceResource() {
@@ -36,6 +37,16 @@ public class SettingsFragment extends BasePreferenceFragment
 		mOptDir = $(this, Settings.OUTPUT_DIRECTORY);
 		mMatchingThreshold = $(this, Settings.MATCHING_THRESHOLD);
 		mTopShadow = $(this, Settings.TOP_SHADOW_DEPTH);
+		mVersion = $(this, "app_version");
+		
+		String version = "";
+		try {
+			version = getActivity().getPackageManager().getPackageInfo("info.papdt.pano", 0).versionName;
+		} catch (Exception e) {
+			
+		}
+		
+		mVersion.setSummary(version);
 		
 		reload();
 		
