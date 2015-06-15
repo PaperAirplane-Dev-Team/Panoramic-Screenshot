@@ -107,17 +107,26 @@ public class ScreenshotActivity extends ToolbarActivity
 			composer.setThreshold(((int) settings.get(Settings.MATCHING_THRESHOLD)) / 100.0f);
 			composer.setStatusBarHeight(statusHeight);
 			composer.setShadowHeight(dp2pxY(ScreenshotActivity.this, (int) settings.get(Settings.TOP_SHADOW_DEPTH)));
-			return composer.compose(params[0].toArray(new String[params[0].size()]), new ScreenshotComposer.ProgressListener() {
-				@Override
-				public void onAnalyzingImage(int i, int j, int total) {
-					publishProgress(String.format(getString(R.string.analyzing_image), i, j, total));
+			try {
+				return composer.compose(params[0].toArray(new String[params[0].size()]), new ScreenshotComposer.ProgressListener() {
+					@Override
+					public void onAnalyzingImage(int i, int j, int total) {
+						publishProgress(String.format(getString(R.string.analyzing_image), i, j, total));
+					}
+					
+					@Override
+					public void onComposingImage() {
+						publishProgress(getString(R.string.composing_image));
+					}
+				});
+			} catch (Exception e) {
+				// TODO: Show the exact error
+				if (DEBUG) {
+					Log.e(TAG, Log.getStackTraceString(e));
 				}
 				
-				@Override
-				public void onComposingImage() {
-					publishProgress(getString(R.string.composing_image));
-				}
-			});
+				return null;
+			}
 		}
 
 		@Override
@@ -146,8 +155,12 @@ public class ScreenshotActivity extends ToolbarActivity
 				}, 1000);
 			} else {
 				prog.dismiss();
-				finish();
-				// If null?
+				
+				Toast.makeText(
+					ScreenshotActivity.this, 
+					getString(R.string.compose_failure),
+					Toast.LENGTH_LONG).show();
+				
 			}
 		}
 
