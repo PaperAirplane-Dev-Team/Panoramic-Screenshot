@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import static info.papdt.pano.BuildConfig.DEBUG;
