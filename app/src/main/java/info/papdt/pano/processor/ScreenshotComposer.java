@@ -42,6 +42,7 @@ public class ScreenshotComposer
 	
 	private String mOutDir = "/sdcard/Pictures/Panoramic";
 	private float mThreshold = 0.08f;
+	private int mStatusBarHeight = 40; // px
 	
 	public static final ScreenshotComposer getInstance() {
 		if (sInstance == null) {
@@ -70,6 +71,10 @@ public class ScreenshotComposer
 			throw new IllegalArgumentException("illegal threshold");
 		
 		mThreshold = threshold;
+	}
+	
+	public void setStatusBarHeight(int height) {
+		mStatusBarHeight = height;
 	}
 	
 	public String compose(String[] images, ProgressListener listener) {
@@ -128,8 +133,7 @@ public class ScreenshotComposer
 			
 			// Go through from the first line
 			int start = -1;
-			// TODO Should start from where just below statusbar
-			for (int j = 40; j < currentBmp.getHeight(); j++) {
+			for (int j = mStatusBarHeight + 1; j < currentBmp.getHeight(); j++) {
 				if (compareLines(currentBmp, nextBmp, j)) {
 					start = j;
 					break;

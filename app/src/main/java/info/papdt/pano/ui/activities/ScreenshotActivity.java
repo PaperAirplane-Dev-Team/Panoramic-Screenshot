@@ -86,6 +86,7 @@ public class ScreenshotActivity extends ToolbarActivity
 	private class ScreenshotTask extends AsyncTask<List<String>, String, String> {
 		ProgressDialog prog;
 		Map<String, Object> settings;
+		int statusHeight;
 		
 		@Override
 		protected void onPreExecute() {
@@ -96,6 +97,7 @@ public class ScreenshotActivity extends ToolbarActivity
 			prog.show();
 			
 			settings = mFragment.getSettings();
+			statusHeight = getStatusBarHeight(ScreenshotActivity.this);
 		}
 
 		@Override
@@ -103,6 +105,7 @@ public class ScreenshotActivity extends ToolbarActivity
 			ScreenshotComposer composer = ScreenshotComposer.getInstance();
 			composer.setOutputDir((String) settings.get(Settings.OUTPUT_DIRECTORY));
 			composer.setThreshold(((int) settings.get(Settings.MATCHING_THRESHOLD)) / 100.0f);
+			composer.setStatusBarHeight(statusHeight);
 			return composer.compose(params[0].toArray(new String[params[0].size()]), new ScreenshotComposer.ProgressListener() {
 				@Override
 				public void onAnalyzingImage(int i, int j, int total) {
