@@ -123,11 +123,11 @@ public class ScreenshotComposer
 			
 			// Intented to use thresholding but failed. Help needed.
 			if (currentBmp == null) {	
-				currentBmp = toGrayscale(BitmapFactory.decodeFile(images[i].getAbsolutePath()));
+				currentBmp = BitmapFactory.decodeFile(images[i].getAbsolutePath());
 				fullWidth = currentBmp.getWidth();
 			}
 			
-			nextBmp = toGrayscale(BitmapFactory.decodeFile(images[i + 1].getAbsolutePath()));
+			nextBmp = BitmapFactory.decodeFile(images[i + 1].getAbsolutePath());
 			
 			if (currentBmp.getHeight() != nextBmp.getHeight()) {
 				
