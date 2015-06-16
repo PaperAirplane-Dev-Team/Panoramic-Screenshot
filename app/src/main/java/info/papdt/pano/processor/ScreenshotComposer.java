@@ -199,19 +199,19 @@ public class ScreenshotComposer
 			
 			/*String matchSub = null;*/
 			List<Long> matchSub = null;
-			int matchLength = -1;
+			int matchLength = arrayHeadTailMatch(hashNext, hashCurrent, length, mThreshold);
 			
-			for (int j = length; j > 0; j--) {
+			/*for (int j = length; j > 0; j--) {
 				//List<Long> hashSubNext = buildHashOfSubregion(hashNext, j);
 				//List<Long> hashSubCur = buildHashOfSubregionFromBottom(hashCurrent, j);
 				
 				//int result = arrayContainsEx(hashCurrent, hashSub, mThreshold);
 				
-				if (arrayCompareEx(hashNext, hashCurrent, 0, hashCurrent.size() - j - 1, j, mThreshold)) {
+			//	if (arrayCompareEx(hashNext, hashCurrent, 0, hashCurrent.size() - j - 1, j, mThreshold)) {
 					//matchSub = hashSubNext;
-					matchLength = j;
-					break;
-				}
+			//		matchLength = j;
+			//		break;
+			//	}
 				
 				/*String hashSub = buildHashStringOfSubregion(hashNext, j);
 				
@@ -220,7 +220,7 @@ public class ScreenshotComposer
 					matchLength = j;
 					break;
 				}*/
-			}
+			//}
 			
 			/*if (matchSub == null) {
 				return null;
