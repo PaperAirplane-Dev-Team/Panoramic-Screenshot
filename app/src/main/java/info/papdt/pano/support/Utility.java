@@ -16,11 +16,11 @@ public class Utility
 {
 	private static final String TAG = Utility.class.getSimpleName();
 	
-	public static <T> int arrayContainsEx(List<T> list, List<T> sub, float threshold) {
-		int length = sub.size();
+	public static <T> int arrayContainsEx(T[] list, T[] sub, float threshold) {
+		int length = sub.length;
 		
 		int index = -1;
-		for (int i = 0; i < list.size() - length; i++) {
+		for (int i = 0; i < list.length - length; i++) {
 			if (arrayCompareEx(list, sub, i, 0, length, threshold)) {
 				index = i;
 				break;
@@ -30,11 +30,11 @@ public class Utility
 		return index;
 	}
 	
-	public static <T> boolean arrayCompareEx(List<T> a, List<T> b, int aStart, int bStart, int length, float threshold) {
+	public static <T> boolean arrayCompareEx(T[] a, T[] b, int aStart, int bStart, int length, float threshold) {
 		int unmatches = 0;
 		for (int i = 0; i < length; i++) {
-			T valueA = a.get(aStart + i);
-			T valueB = b.get(bStart + i);
+			T valueA = a[aStart + i];
+			T valueB = b[bStart + i];
 			
 			if (valueA == null || !valueA.equals(valueB)) {
 				unmatches++;
@@ -56,8 +56,8 @@ public class Utility
 	 * @param tailArray The array that have a common part with the other at tail
 	 *
 	 */
-	public static <T> int arrayHeadTailMatch(List<T> headArray, List<T> tailArray, int length, float threshold) {
-		if (headArray.size() != tailArray.size()) throw new IllegalArgumentException("length differs");
+	public static <T> int arrayHeadTailMatch(T[] headArray, T[] tailArray, int length, float threshold) {
+		if (headArray.length != tailArray.length) throw new IllegalArgumentException("length differs");
 		
 		long startTime = -1;
 		
@@ -65,7 +65,7 @@ public class Utility
 			startTime = System.currentTimeMillis();
 		}
 		
-		int arrayLength = headArray.size();
+		int arrayLength = headArray.length;
 		/*int unmatches = 0;
 		float thresholdValue = (float) length * threshold;
 		*/

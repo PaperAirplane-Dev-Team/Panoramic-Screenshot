@@ -201,8 +201,8 @@ public class ScreenshotComposer
 			
 			// Generate a hash string of the bitmaps
 			long regionStartTime = System.currentTimeMillis();
-			List<Long> hashCurrent = buildHashOfRegion(currentBmp, start + mShadowHeight, end);
-			List<Long> hashNext = buildHashOfRegion(nextBmp, start + mShadowHeight, end);
+			Long[] hashCurrent = buildHashOfRegion(currentBmp, start + mShadowHeight, end);
+			Long[] hashNext = buildHashOfRegion(nextBmp, start + mShadowHeight, end);
 			
 			if (DEBUG) {
 				Log.d(TAG, "region build time " + (System.currentTimeMillis() - regionStartTime));
@@ -392,34 +392,15 @@ public class ScreenshotComposer
 		return hash;
 	}
 	
-	private List<Long> buildHashOfRegion(Bitmap bmp, int start, int end) {
-		List<Long> list = new ArrayList<Long>();
+	private Long[] buildHashOfRegion(Bitmap bmp, int start, int end) {
+		//List<Long> list = new ArrayList<Long>();
+		Long[] array = new Long[end - start];
 		
 		for (int i = start; i < end; i++) {
-			list.add(getHashOfLine(bmp, i));
+			array[i - start] = getHashOfLine(bmp, i);
 		}
 		
-		return list;
-	}
-	
-	private List<Long> buildHashOfSubregion(List<Long> hash, int length) {
-		List<Long> list = new ArrayList<Long>();
-		
-		for (int i = 0; i < length; i++) {
-			list.add(hash.get(i));
-		}
-		
-		return list;
-	}
-	
-	private List<Long> buildHashOfSubregionFromBottom(List<Long> hash, int length) {
-		List<Long> list = new ArrayList<>();
-		
-		for (int i = hash.size() - 1; i > hash.size() - length - 1; i--) {
-			list.add(0, hash.get(i));
-		}
-		
-		return list;
+		return array;
 	}
 	
 }
