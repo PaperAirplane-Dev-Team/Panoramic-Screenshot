@@ -392,15 +392,26 @@ public class ScreenshotComposer
 		return hash;
 	}
 	
-	private Long[] buildHashOfRegion(Bitmap bmp, int start, int end) {
+	private Long[] buildHashOfRegion(Bitmap bmp, final int start, final int end) {
 		//List<Long> list = new ArrayList<Long>();
 		Long[] array = new Long[end - start];
 		
-		for (int i = start; i < end; i++) {
+		/*for (int i = start; i < end; i++) {
 			array[i - start] = getHashOfLine(bmp, i);
-		}
+		}*/
 		
-		return array;
+		return new MultiThreadTask<Bitmap, Long>(bmp, array) {
+			@Override
+			protected void doExecute(Bitmap arg, int taskStart, int taskLength) {
+				for (int i = 0; i < taskLength; i++) {
+					long hash = getHashOfLine(arg, start + taskStart + i);
+					
+					setResult(taskStart + i, hash);
+				}
+			}
+		}.execute(8);
+		
+		//return array;
 	}
 	
 }
