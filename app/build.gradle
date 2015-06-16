@@ -8,8 +8,8 @@ android {
         applicationId "info.papdt.pano"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.0-alpha2"
     }
     buildTypes {
         release {
