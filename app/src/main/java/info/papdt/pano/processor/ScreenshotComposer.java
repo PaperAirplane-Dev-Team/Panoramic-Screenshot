@@ -226,9 +226,9 @@ public class ScreenshotComposer
 				return null;
 			}*/
 			
-			int index = arrayContainsEx(hashNext, matchSub, 0.0f);
+			//int index = arrayContainsEx(hashNext, matchSub, 0.0f);
 			
-			start = start + index + matchLength + mShadowHeight + 1;
+			start = start/* + index*/ + matchLength + mShadowHeight + 1;
 			
 			if (DEBUG) {
 				Log.d(TAG, "Different region between " + i + " and " + (i + 1));
