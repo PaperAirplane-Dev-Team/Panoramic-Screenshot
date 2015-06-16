@@ -116,10 +116,13 @@ public class ScreenshotComposer
 		int fullHeight = 0, fullWidth = 0;
 		
 		for (int i = 0; i < images.length - 1; i++) {
+			long thisStartTime = System.currentTimeMillis();
 			
 			if (listener != null) {
 				listener.onAnalyzingImage(i + 1, i + 2, images.length);
 			}
+			
+			long decodeStartTime = System.currentTimeMillis();
 			
 			// Intented to use thresholding but failed. Help needed.
 			if (currentBmp == null) {	
@@ -128,6 +131,10 @@ public class ScreenshotComposer
 			}
 			
 			nextBmp = BitmapFactory.decodeFile(images[i + 1].getAbsolutePath());
+			
+			if (DEBUG) {
+				Log.d(TAG, "decode time " + (System.currentTimeMillis() - decodeStartTime));
+			}
 			
 			if (currentBmp.getHeight() != nextBmp.getHeight()) {
 				
@@ -139,6 +146,8 @@ public class ScreenshotComposer
 			}
 			
 			// First, find the max different region of the two bitmaps
+			
+			long headStartTime = System.currentTimeMillis();
 			
 			// Go through from the first line
 			int start = -1;
@@ -176,6 +185,10 @@ public class ScreenshotComposer
 				return null;
 			}
 			
+			if (DEBUG) {
+				Log.d(TAG, "head match time " + (System.currentTimeMillis() - headStartTime));
+			}
+			
 			if (i == 0) {
 				Region region = new Region();
 				region.startLine = start;
@@ -187,8 +200,13 @@ public class ScreenshotComposer
 			// Second, find out the max common region
 			
 			// Generate a hash string of the bitmaps
+			long regionStartTime = System.currentTimeMillis();
 			List<Long> hashCurrent = buildHashOfRegion(currentBmp, start + mShadowHeight, end);
 			List<Long> hashNext = buildHashOfRegion(nextBmp, start + mShadowHeight, end);
+			
+			if (DEBUG) {
+				Log.d(TAG, "region build time " + (System.currentTimeMillis() - regionStartTime));
+			}
 			
 			/*if (DEBUG) {
 				Log.d(TAG, "hashCurrent = " + hashCurrent);
@@ -240,6 +258,10 @@ public class ScreenshotComposer
 			region.endLine = end;
 			regions[i + 1] = region;
 			fullHeight += end - start;
+			
+			if (DEBUG) {
+				Log.d(TAG, i + " total time " + (System.currentTimeMillis() - thisStartTime));
+			}
 			
 			currentBmp.recycle();
 			currentBmp = nextBmp;
@@ -359,13 +381,15 @@ public class ScreenshotComposer
 	}
 	
 	private long getHashOfLine(Bitmap bmp, int line) {
-		CRC32 hash = new CRC32();
+		//CRC32 hash = new CRC32();
+		
+		long hash = 0;
 		
 		for (int i = 0; i < bmp.getWidth(); i++) {
-			hash.update(bmp.getPixel(i, line));
+			hash += bmp.getPixel(i, line);
 		}
 		
-		return hash.getValue();
+		return hash;
 	}
 	
 	private List<Long> buildHashOfRegion(Bitmap bmp, int start, int end) {
