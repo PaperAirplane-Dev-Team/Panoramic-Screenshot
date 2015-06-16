@@ -202,13 +202,13 @@ public class ScreenshotComposer
 			int matchLength = -1;
 			
 			for (int j = length; j > 0; j--) {
-				List<Long> hashSubNext = buildHashOfSubregion(hashNext, j);
-				List<Long> hashSubCur = buildHashOfSubregionFromBottom(hashCurrent, j);
+				//List<Long> hashSubNext = buildHashOfSubregion(hashNext, j);
+				//List<Long> hashSubCur = buildHashOfSubregionFromBottom(hashCurrent, j);
 				
 				//int result = arrayContainsEx(hashCurrent, hashSub, mThreshold);
 				
-				if (arrayCompareEx(hashSubNext, hashSubCur, 0, 0, j, mThreshold)) {
-					matchSub = hashSubNext;
+				if (arrayCompareEx(hashNext, hashCurrent, 0, hashCurrent.size() - j - 1, j, mThreshold)) {
+					//matchSub = hashSubNext;
 					matchLength = j;
 					break;
 				}
