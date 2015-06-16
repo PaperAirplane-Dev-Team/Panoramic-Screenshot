@@ -4,6 +4,32 @@
 		<![CDATA[
 		<h3>Panoramic Screenshot</h3>
 		<p>A tool that automatically merges several screenshots of a continuous list into one, which is called \"Panoramic Screenshot\" or \"Long Screenshot\".</p>
+		<p>Panoramic Screenshot is free software, licensed under GNU General Public License version 3 or later. Source code and license text available at <a href="http://github.com/PaperAirplane-Dev-Team/Panoramic-Screenshot">http://github.com/PaperAirplane-Dev-Team/Panoramic-Screenshot</a></p>
+		<h3>Usage</h3>
+		<p>1. Start this app and click on the \"+\" icon<br/>
+			2. Go to the app page you want to take screenshot of.<br/>
+			3. Scroll to top, take a screenshot.<br/>
+			4. Scroll down a little, take another.<br/>
+			5. Repeat 3 and 4 until you finish.<br/>
+			6. Click the notification, adjust the settings, and click the tick.</p>
+		<p>Above are only steps for normal apps with a list. All you need to do is keep a visible common part between two screenshots taken. This is to ensure that the final output is continuous.</p>
+		<h3>Requirements</h3>
+		<p>1. The screenshoted app\'s title should not change between two screenshots.<br/>
+			2. The bottom bar (if any) of the app should not change or only change slightly.<br/>
+			3. The list should have a solid background.<br/>
+			4. A list item should not vary in style when it is scrolled.<br/>
+			5. A common part must be kept between two shots, at least larger than the \"top shadow\" value in settings. If not, the screenshot may end up uncontinuous or may fail.</p>
+		<h3>Libraries</h3>
+		<p><strong>Android Support Libraries</strong><br/><small>Apache License 2.0</small></p>
+		<p><strong>Picasso</strong><br/><small>Apache License 2.0</small></p>
+		<p><strong>NoNonsense-FilePicker</strong><br/><small>GNU Lesser General Public License v3+</small></p>
+		<p><strong>subsampling-image-view</strong><br/><small>Apache License 2.0</small></p>
+		<p><strong>discreteSeekbar</strong><br/><small>Apache License 2.0</small></p>
+		<h3>Copyright</h3>
+		<p>Copyright (C) 2015 Peter Cai</p>
+		<p>Panoramic Screenshot is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+		<p>Panoramic Screenshot is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p>
+		<p>You should have received a copy of the GNU General Public License along with Panoramic Screenshot.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
 		]]>
 	</string>
 </resources>
