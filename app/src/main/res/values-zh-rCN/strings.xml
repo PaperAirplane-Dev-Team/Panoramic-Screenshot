@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">全景截图</string>
+
+	<!-- Service notifications -->
+	<string name="notifi_first">现在，请截取第一张图片</string>
+	<string name="notifi_count">截取第 %d 张图片</string>
+	<string name="notifi_tip">点此通知以完成截图</string>
+	<string name="cancel">取消</string>
+
+	<!-- Main -->
+	<string-array name="main_tabs">
+		<item>图片</item>
+		<item>设置</item>
+		<item>关于</item>
+	</string-array>
+
+	<!-- Settings -->
+	<string name="shot_settings">截图选项</string>
+	<string name="paths">路径</string>
+	<string name="screenshot_directory">系统截图目录</string>
+	<string name="output_directory">输出目录</string>
+	<string name="analyzing_options">分析选项</string>
+	<string name="matching_threshold">匹配阈值</string>
+	<string name="matching_threshold_sum">如果两个区域的不同处占比小于此值，则认为它们相同。用于忽略细微变化。</string>
+	<string name="top_shadow_depth">顶部阴影深度</string>
+	<string name="top_shadow_depth_sum">如果默认值不能正确处理app顶部阴影，请提高此值。注意，此值越大，两张截图之间所应留有的共同部分就应越多。</string>
+	<string name="version">版本</string>
+	<string name="app_version">App 版本</string>
+
+	<!-- Messages -->
+	<string name="plz_wait">Please wait...</string>
+	<string name="saved">Screenshot saved to %s</string>
+	<string name="analyzing_image" formatted="false">Analyzing image %d and %d of %d ...</string>
+	<string name="composing_image">Composing images...</string>
+	<string name="compose_failure">Compose failure. You could change the parameters and try again.</string>
+
+</resources>

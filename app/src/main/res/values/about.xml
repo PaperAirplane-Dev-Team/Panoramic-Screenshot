@@ -10,7 +10,7 @@
 			2. Go to the app page you want to take screenshot of.<br/>
 			3. Scroll to top, take a screenshot.<br/>
 			4. Scroll down a little, take another.<br/>
-			5. Repeat 3 and 4 until you finish.<br/>
+			5. Repeat 4 until you finish.<br/>
 			6. Click the notification, adjust the settings, and click the tick.</p>
 		<p>Above are only steps for normal apps with a list. All you need to do is keep a visible common part between two screenshots taken. This is to ensure that the final output is continuous.</p>
 		<h3>Requirements</h3>
@@ -22,7 +22,8 @@
 			6. <strong>This app currently does not work with:</strong><br/>
 			(1) Apps without actionbar (toolbar) or with a changing top part.<br/>
 			(2) Apps with FAB (Floating Action Button) or anything at the bottom line that is persistent and (partly) transparent.<br/>
-			(3) If the top part collapses, please make sure that it appears only on one screenshot.</p>
+			(3) If the top part collapses, please make sure that it appears only on one screenshot.<br/>
+			(4) Scrollbars should for now be avoided.</p>
 		<h3>Libraries</h3>
 		<p><strong>Android Support Libraries</strong><br/><small>Apache License 2.0</small></p>
 		<p><strong>Picasso</strong><br/><small>Apache License 2.0</small></p>

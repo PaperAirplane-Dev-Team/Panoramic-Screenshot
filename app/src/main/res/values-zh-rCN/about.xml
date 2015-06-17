@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="about">
+		<![CDATA[
+		<h3>全景截图</h3>
+		<p>一个基于共同部分将一个连续列表的多张截图合并的小工具。</p>
+		<p>全景截图是自由软件，以 GNU General Public License 版本3或更高 授权。 源码和协议文本在 <a href="https://github.com/PaperAirplane-Dev-Team/Panoramic-Screenshot">http://github.com/PaperAirplane-Dev-Team/Panoramic-Screenshot</a></p>
+		<h3>使用方法</h3>
+		<p>1. 打开本app，点击 \"+\" 图标<br/>
+			2. 前往您希望截图的app页面<br/>
+			3. 滚到顶部，截图<br/>
+			4. 向下滚一些，再截图<br/>
+			5. 重复步骤4直到完成.<br/>
+			6. 点击通知，调整设置，按勾勾即可</p>
+		<p>上述步骤适用于通常的含有列表的app。 你所要做的，就是保证两张截图之间有可见的、适当大小的公共部分。这是为了保证输出图的连续性。</p>
+		<h3>要求</h3>
+		<p>1. App的顶栏标题部分不能改变<br/>
+			2. App的底栏(如果有)不能改变或可以只改变一点点<br/>
+			3. 列表背景应为纯色<br/>
+			4. 滚动时同一个表项不可以改变外观<br/>
+			5. 两张图要有公共部分，且不应小于设置中的顶部阴影<br/>
+			6. <strong>以下情况目前不能处理:</strong><br/>
+			(1) 无顶栏或顶栏改变<br/>
+			(2) 浮动按钮或任何带透明部分的固定的东西<br/>
+			(3) 如果顶栏会收缩，请保证它只出现在一张图里<br/>
+			(4) 目前应该避免滚动条</p>
+		<h3>库</h3>
+		<p><strong>Android Support Libraries</strong><br/><small>Apache License 2.0</small></p>
+		<p><strong>Picasso</strong><br/><small>Apache License 2.0</small></p>
+		<p><strong>NoNonsense-FilePicker</strong><br/><small>GNU Lesser General Public License v3+</small></p>
+		<p><strong>subsampling-image-view</strong><br/><small>Apache License 2.0</small></p>
+		<p><strong>discreteSeekbar</strong><br/><small>Apache License 2.0</small></p>
+		<h3>版权声明</h3>
+		<p>Copyright (C) 2015 Peter Cai</p>
+		<p>Panoramic Screenshot is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+		<p>Panoramic Screenshot is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p>
+		<p>You should have received a copy of the GNU General Public License along with Panoramic Screenshot.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
+		]]>
+	</string>
+</resources>
