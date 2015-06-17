@@ -376,8 +376,7 @@ public class ScreenshotComposer
 			}
 		}
 		
-		return diff > 4.0f * (mThreshold / 0.08f); // 4 is for input boxes.
-		// TODO: Use dp instead of px
+		return diff > bmp1.getWidth() / 10 * mThreshold;
 	}
 	
 	private long getHashOfLine(Bitmap bmp, int line) {
