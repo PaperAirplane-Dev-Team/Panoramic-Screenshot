@@ -45,7 +45,7 @@ public abstract class MultiThreadTask<A, R>
 			int taskLength = taskSize;
 			
 			if (i == threadCount - 1) {
-				taskLength = length - start + 1;
+				taskLength = length - start;
 			}
 			
 			final int task = taskLength - 1;
