@@ -30,10 +30,10 @@
 	<string name="app_version">App 版本</string>
 
 	<!-- Messages -->
-	<string name="plz_wait">Please wait...</string>
-	<string name="saved">Screenshot saved to %s</string>
-	<string name="analyzing_image" formatted="false">Analyzing image %d and %d of %d ...</string>
-	<string name="composing_image">Composing images...</string>
-	<string name="compose_failure">Compose failure. You could change the parameters and try again.</string>
+	<string name="plz_wait">请稍候...</string>
+	<string name="saved">截屏已保存至 %s</string>
+	<string name="analyzing_image" formatted="false">正在分析图片 %d 和 %d , 共 %d ...</string>
+	<string name="composing_image">正在合成图片...</string>
+	<string name="compose_failure">合成失败。你可以改变参数再试一次。</string>
 
 </resources>
