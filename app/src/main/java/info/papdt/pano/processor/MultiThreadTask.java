@@ -48,7 +48,7 @@ public abstract class MultiThreadTask<A, R>
 				taskLength = length - start;
 			}
 			
-			final int task = taskLength - 1;
+			final int task = taskLength;
 			
 			if (DEBUG) {
 				Log.d(TAG, i + " start = " + start + " length = " + task + " end = " + (start + task));

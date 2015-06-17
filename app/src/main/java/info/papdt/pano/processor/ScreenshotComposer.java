@@ -402,7 +402,7 @@ public class ScreenshotComposer
 		return new MultiThreadTask<Bitmap, Long>(bmp, array) {
 			@Override
 			protected void doExecute(Bitmap arg, int taskStart, int taskLength) {
-				for (int i = 0; i <= taskLength; i++) {
+				for (int i = 0; i < taskLength; i++) {
 					long hash = getHashOfLine(arg, start + taskStart + i);
 					
 					setResult(taskStart + i, hash);
