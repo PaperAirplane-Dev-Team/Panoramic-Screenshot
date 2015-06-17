@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.CRC32;
 
+import info.papdt.pano.support.FastBitmapReader;
 import static info.papdt.pano.BuildConfig.DEBUG;
 import static info.papdt.pano.support.Utility.*;
 import static info.papdt.pano.support.BitmapUtility.*;
@@ -112,7 +113,7 @@ public class ScreenshotComposer
 	public String compose(File[] images, ProgressListener listener) {
 		Region[] regions = new Region[images.length];
 		
-		Bitmap currentBmp = null, nextBmp = null;
+		FastBitmapReader currentBmp = null, nextBmp = null;
 		int fullHeight = 0, fullWidth = 0;
 		
 		for (int i = 0; i < images.length - 1; i++) {
@@ -126,11 +127,11 @@ public class ScreenshotComposer
 			
 			// Intented to use thresholding but failed. Help needed.
 			if (currentBmp == null) {	
-				currentBmp = BitmapFactory.decodeFile(images[i].getAbsolutePath());
+				currentBmp = new FastBitmapReader(BitmapFactory.decodeFile(images[i].getAbsolutePath()));
 				fullWidth = currentBmp.getWidth();
 			}
 			
-			nextBmp = BitmapFactory.decodeFile(images[i + 1].getAbsolutePath());
+			nextBmp = new FastBitmapReader(BitmapFactory.decodeFile(images[i + 1].getAbsolutePath()));
 			
 			if (DEBUG) {
 				Log.d(TAG, "decode time " + (System.currentTimeMillis() - decodeStartTime));
@@ -291,8 +292,9 @@ public class ScreenshotComposer
 		Bitmap out = Bitmap.createBitmap(fullWidth, fullHeight, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(out);
 		int totalHeight = 0;
+		Bitmap bmp;
 		for (int i = 0; i < images.length; i++) {
-			currentBmp = BitmapFactory.decodeFile(images[i].getAbsolutePath());
+			bmp = BitmapFactory.decodeFile(images[i].getAbsolutePath());
 			
 			Region region = regions[i];
 			//int height = currentBmp.getHeight();
@@ -309,14 +311,14 @@ public class ScreenshotComposer
 				dst.top = 0;
 				dst.bottom = src.bottom;
 				
-				canvas.drawBitmap(currentBmp, src, dst, null);
+				canvas.drawBitmap(bmp, src, dst, null);
 				
 				src.top = region.endLine;
-				src.bottom = currentBmp.getHeight();
+				src.bottom = bmp.getHeight();
 				dst.bottom = fullHeight;
 				dst.top = dst.bottom - (src.bottom - src.top);
 				
-				canvas.drawBitmap(currentBmp, src, dst, null);
+				canvas.drawBitmap(bmp, src, dst, null);
 				
 				totalHeight += region.endLine;
 				
@@ -326,13 +328,13 @@ public class ScreenshotComposer
 				dst.top = totalHeight;
 				dst.bottom = dst.top + (src.bottom - src.top);
 				
-				canvas.drawBitmap(currentBmp, src, dst, null);
+				canvas.drawBitmap(bmp, src, dst, null);
 				
 				totalHeight += (src.bottom - src.top);
 			}
 			
-			currentBmp.recycle();
-			currentBmp = null;
+			bmp.recycle();
+			bmp = null;
 		}
 		
 		// Write
@@ -368,7 +370,7 @@ public class ScreenshotComposer
 	}
 	
 	// True = different
-	private boolean compareLines(Bitmap bmp1, Bitmap bmp2, int line) {
+	private boolean compareLines(FastBitmapReader bmp1, FastBitmapReader bmp2, int line) {
 		int diff = 0;
 		for (int i = 0; i < bmp1.getWidth(); i++) {
 			if (bmp1.getPixel(i, line) != bmp2.getPixel(i, line)) {
@@ -379,19 +381,17 @@ public class ScreenshotComposer
 		return diff > bmp1.getWidth() / 10 * mThreshold;
 	}
 	
-	private long getHashOfLine(Bitmap bmp, int line) {
-		//CRC32 hash = new CRC32();
-		
+	private long getHashOfLine(FastBitmapReader bmp, int line) {
 		long hash = 0;
 		
 		for (int i = 0; i < bmp.getWidth(); i++) {
-			hash += bmp.getPixel(i, line);
+			hash += bmp.getPixel(i, line) / (i + 1); // A cant-be-simpler hash method
 		}
 		
 		return hash;
 	}
 	
-	private Long[] buildHashOfRegion(Bitmap bmp, final int start, final int end) {
+	private Long[] buildHashOfRegion(FastBitmapReader bmp, final int start, final int end) {
 		//List<Long> list = new ArrayList<Long>();
 		Long[] array = new Long[end - start];
 		
@@ -399,9 +399,9 @@ public class ScreenshotComposer
 			array[i - start] = getHashOfLine(bmp, i);
 		}*/
 		
-		return new MultiThreadTask<Bitmap, Long>(bmp, array) {
+		return new MultiThreadTask<FastBitmapReader, Long>(bmp, array) {
 			@Override
-			protected void doExecute(Bitmap arg, int taskStart, int taskLength) {
+			protected void doExecute(FastBitmapReader arg, int taskStart, int taskLength) {
 				for (int i = 0; i < taskLength; i++) {
 					long hash = getHashOfLine(arg, start + taskStart + i);
 					
