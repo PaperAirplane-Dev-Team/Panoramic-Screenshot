@@ -73,6 +73,7 @@ public class ScreenshotActivity extends ToolbarActivity
 					// If null?
 				}
 				
+				unbindService(this);
 				stopService(i);
 			}
 			
