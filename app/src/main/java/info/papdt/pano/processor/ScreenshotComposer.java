@@ -408,7 +408,7 @@ public class ScreenshotComposer
 					setResult(taskStart + i, hash);
 				}
 			}
-		}.execute(8);
+		}.execute(Runtime.getRuntime().availableProcessors() * 2); // 2 * CPU cores
 		
 		//return array;
 	}
