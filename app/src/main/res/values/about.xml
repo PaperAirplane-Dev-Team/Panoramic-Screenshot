@@ -4,7 +4,7 @@
 		<![CDATA[
 		<h3>Panoramic Screenshot</h3>
 		<p>A tool that automatically merges several screenshots of a continuous list into one, which is called \"Panoramic Screenshot\" or \"Long Screenshot\".</p>
-		<p>Panoramic Screenshot is free software, licensed under GNU General Public License version 3 or later. Source code and license text available at <a href="http://github.com/PaperAirplane-Dev-Team/Panoramic-Screenshot">http://github.com/PaperAirplane-Dev-Team/Panoramic-Screenshot</a></p>
+		<p>Panoramic Screenshot is free software, licensed under GNU General Public License version 3 or later. Source code and license text available at <a href="https://github.com/PaperAirplane-Dev-Team/Panoramic-Screenshot">http://github.com/PaperAirplane-Dev-Team/Panoramic-Screenshot</a></p>
 		<h3>Usage</h3>
 		<p>1. Start this app and click on the \"+\" icon<br/>
 			2. Go to the app page you want to take screenshot of.<br/>
@@ -18,7 +18,11 @@
 			2. The bottom bar (if any) of the app should not change or only change slightly.<br/>
 			3. The list should have a solid background.<br/>
 			4. A list item should not vary in style when it is scrolled.<br/>
-			5. A common part must be kept between two shots, at least larger than the \"top shadow\" value in settings. If not, the screenshot may end up uncontinuous or may fail.</p>
+			5. A common part must be kept between two shots, at least larger than the \"top shadow\" value in settings. If not, the screenshot may end up uncontinuous or may fail.<br/>
+			6. <strong>This app currently does not work with:</strong><br/>
+			(1) Apps without actionbar (toolbar) or with a changing top part.<br/>
+			(2) Apps with FAB (Floating Action Button) or anything at the bottom line that is persistent and (partly) transparent.<br/>
+			(3) If the top part collapses, please make sure that it appears only on one screenshot.</p>
 		<h3>Libraries</h3>
 		<p><strong>Android Support Libraries</strong><br/><small>Apache License 2.0</small></p>
 		<p><strong>Picasso</strong><br/><small>Apache License 2.0</small></p>
