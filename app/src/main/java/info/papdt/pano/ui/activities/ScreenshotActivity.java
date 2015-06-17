@@ -105,7 +105,7 @@ public class ScreenshotActivity extends ToolbarActivity
 		protected String doInBackground(List<String>... params) {
 			ScreenshotComposer composer = ScreenshotComposer.getInstance();
 			composer.setOutputDir((String) settings.get(Settings.OUTPUT_DIRECTORY));
-			composer.setThreshold(((int) settings.get(Settings.MATCHING_THRESHOLD)) / 100.0f);
+			composer.setThreshold(((int) settings.get(Settings.MATCHING_THRESHOLD)) * 2 / 100000.0f);
 			composer.setStatusBarHeight(statusHeight);
 			composer.setShadowHeight(dp2pxY(ScreenshotActivity.this, (int) settings.get(Settings.TOP_SHADOW_DEPTH)));
 			try {

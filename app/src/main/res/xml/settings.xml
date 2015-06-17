@@ -23,9 +23,9 @@
 			android:key="matching_threshold"
 			android:title="@string/matching_threshold"
 			android:summary="@string/matching_threshold_sum"
-			app:dsbp_max="20"
+			app:dsbp_max="9999"
 			app:dsbp_min="0"
-			app:dsbp_format="%d%%"/>
+			app:dsbp_format="%d"/>
 		
 		<info.papdt.pano.ui.preference.DiscreteSeekBarPreference
 			android:key="top_shadow_depth"

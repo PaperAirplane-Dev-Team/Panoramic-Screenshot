@@ -24,7 +24,7 @@ public class Settings
 	static {
 		DEFAULTS.put(SCREENSHOT_DIRECTORY, "/sdcard/Pictures/Screenshots");
 		DEFAULTS.put(OUTPUT_DIRECTORY, "/sdcard/Pictures/Panoramic");
-		DEFAULTS.put(MATCHING_THRESHOLD, 8);
+		DEFAULTS.put(MATCHING_THRESHOLD, 4000);
 		DEFAULTS.put(TOP_SHADOW_DEPTH, 10);
 		
 	}
