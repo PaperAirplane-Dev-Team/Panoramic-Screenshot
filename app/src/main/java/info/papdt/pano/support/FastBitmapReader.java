@@ -27,6 +27,10 @@ public class FastBitmapReader
 		return mPixels[x + y * mWidth];
 	}
 	
+	public int[] getPixels() {
+		return mPixels;
+	}
+	
 	public int getWidth() {
 		return mWidth;
 	}

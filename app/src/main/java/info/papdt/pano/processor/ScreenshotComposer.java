@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.zip.CRC32;
 
 import info.papdt.pano.support.FastBitmapReader;
+import info.papdt.pano.support.FastBitmapWriter;
 import static info.papdt.pano.BuildConfig.DEBUG;
 import static info.papdt.pano.support.Utility.*;
 import static info.papdt.pano.support.BitmapUtility.*;
@@ -289,48 +290,57 @@ public class ScreenshotComposer
 			listener.onComposingImage();
 		}
 		
-		Bitmap out = Bitmap.createBitmap(fullWidth, fullHeight, Bitmap.Config.ARGB_8888);
-		Canvas canvas = new Canvas(out);
+		//Bitmap out = Bitmap.createBitmap(fullWidth, fullHeight, Bitmap.Config.ARGB_8888);
+		//Canvas canvas = new Canvas(out);
+		FastBitmapWriter writer = new FastBitmapWriter(fullWidth, fullHeight);
 		int totalHeight = 0;
-		Bitmap bmp;
+		FastBitmapReader bmp;
 		for (int i = 0; i < images.length; i++) {
-			bmp = BitmapFactory.decodeFile(images[i].getAbsolutePath());
+			bmp = new FastBitmapReader(BitmapFactory.decodeFile(images[i].getAbsolutePath()));
 			
 			Region region = regions[i];
 			//int height = currentBmp.getHeight();
 			
-			Rect src = new Rect();
+			/*Rect src = new Rect();
 			Rect dst = new Rect();
 			src.left = 0;
 			src.right = fullWidth;
 			dst.left = 0;
-			dst.right = fullWidth;
+			dst.right = fullWidth;*/
 			if (i == 0) {
-				src.top = 0;
+				/*src.top = 0;
 				src.bottom = region.endLine;
 				dst.top = 0;
-				dst.bottom = src.bottom;
+				dst.bottom = src.bottom;*/
 				
-				canvas.drawBitmap(bmp, src, dst, null);
+				writer.writeBitmapRegion(bmp, 0, 0, region.endLine);
 				
-				src.top = region.endLine;
+				//canvas.drawBitmap(bmp, src, dst, null);
+				
+				/*src.top = region.endLine;
 				src.bottom = bmp.getHeight();
 				dst.bottom = fullHeight;
-				dst.top = dst.bottom - (src.bottom - src.top);
+				dst.top = dst.bottom - (src.bottom - src.top);*/
 				
-				canvas.drawBitmap(bmp, src, dst, null);
+				int bmpHeight = bmp.getHeight();
+				
+				writer.writeBitmapRegion(bmp, region.endLine, fullHeight - (bmpHeight - region.endLine), bmpHeight - region.endLine);
+				
+				//canvas.drawBitmap(bmp, src, dst, null);
 				
 				totalHeight += region.endLine;
 				
 			} else {
-				src.top = region.startLine;
+				/*src.top = region.startLine;
 				src.bottom = region.endLine;
 				dst.top = totalHeight;
-				dst.bottom = dst.top + (src.bottom - src.top);
+				dst.bottom = dst.top + (src.bottom - src.top);*/
 				
-				canvas.drawBitmap(bmp, src, dst, null);
+				//canvas.drawBitmap(bmp, src, dst, null);
 				
-				totalHeight += (src.bottom - src.top);
+				writer.writeBitmapRegion(bmp, region.startLine, totalHeight, region.endLine - region.startLine);
+				
+				totalHeight += (region.endLine - region.startLine);
 			}
 			
 			bmp.recycle();
@@ -349,6 +359,9 @@ public class ScreenshotComposer
 			
 		}
 		
+		Bitmap out = writer.getBitmap();
+		writer.recycle();
+		
 		FileOutputStream opt = null;
 		try {
 			opt = new FileOutputStream(outFile);
@@ -365,6 +378,8 @@ public class ScreenshotComposer
 		} catch (IOException e) {
 			
 		}
+		
+		out.recycle();
 		
 		return outFile.getAbsolutePath();
 	}
