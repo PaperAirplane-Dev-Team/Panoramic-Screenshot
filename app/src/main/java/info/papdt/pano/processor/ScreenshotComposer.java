@@ -337,9 +337,14 @@ public class ScreenshotComposer
 				int bmpHeight = decoder.getHeight();
 				
 				if (region.endLine < bmpHeight - 1) {
-					bmp = new FastBitmapReader(decoder.decodeRegion(new Rect(0, region.endLine, fullWidth, bmpHeight), null));
-					writer.writeBitmapRegion(bmp, 0, fullHeight - (bmpHeight - region.endLine), bmpHeight - region.endLine);
-					bmp.recycle();
+					// Dirty Fix: Ignore any NPE here.
+					try {
+						bmp = new FastBitmapReader(decoder.decodeRegion(new Rect(0, region.endLine, fullWidth, bmpHeight), null));
+						writer.writeBitmapRegion(bmp, 0, fullHeight - (bmpHeight - region.endLine), bmpHeight - region.endLine);
+						bmp.recycle();
+					} catch (NullPointerException npe) {
+						
+					}
 				}
 				
 				//canvas.drawBitmap(bmp, src, dst, null);
