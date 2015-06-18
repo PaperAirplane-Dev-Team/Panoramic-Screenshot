@@ -128,7 +128,7 @@ public class ScreenshotService extends Service
 				
 				//mIntent.putExtra(EXTRA_PATHS, mFiles.toArray(new String[mFiles.size()]));
 				
-				PendingIntent i = PendingIntent.getActivity(ScreenshotService.this, 0, mIntent, 0);
+				PendingIntent i = mFiles.size() >= 2 ? PendingIntent.getActivity(ScreenshotService.this, 0, mIntent, 0) : null;
 				
 				rebuildNotification(i, String.format(getString(R.string.notifi_count), mFiles.size() + 1), getString(R.string.notifi_tip));
 				
