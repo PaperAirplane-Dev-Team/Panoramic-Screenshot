@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">全景截圖</string>
+
+	<!-- Service notifications -->
+	<string name="notifi_first">現在，請捕獲第一張熒幕截圖</string>
+	<string name="notifi_count">捕獲第 %d 張熒幕截圖</string>
+	<string name="notifi_tip">點擊通知以完成捕獲</string>
+	<string name="cancel">取消</string>
+
+	<!-- Main -->
+	<string-array name="main_tabs">
+		<item>畫廊</item>
+		<item>設置</item>
+		<item>關於</item>
+	</string-array>
+
+	<!-- Settings -->
+	<string name="shot_settings">截圖選項</string>
+	<string name="paths">路徑</string>
+	<string name="screenshot_directory">系統截圖目錄</string>
+	<string name="output_directory">輸出目錄</string>
+	<string name="analyzing_options">分析選項</string>
+	<string name="matching_threshold">匹配閾值</string>
+	<string name="matching_threshold_sum">如果兩片區域的不同處佔比小于該值，則判定它們相同。可用於忽略細微變化。</string>
+	<string name="top_shadow_depth">頂部陰影深度</string>
+	<string name="top_shadow_depth_sum">如果默認值不能正確處理應用程式頂欄陰影，請提高此值。注意！此值越大，兩張熒幕截圖之間所應保留的共同部分就應越多。</string>
+	<string name="version">版本</string>
+	<string name="app_version">應用程式版本</string>
+
+	<!-- Messages -->
+	<string name="plz_wait">請稍後...</string>
+	<string name="saved">熒幕截圖已儲存至 %s</string>
+	<string name="analyzing_image" formatted="false">正在解析圖像 %d 與 %d , 共 %d ...</string>
+	<string name="composing_image">正在合成圖像...</string>
+	<string name="compose_failure">合成失敗。你可以嘗試改變參數後重試。</string>
+
+</resources>
