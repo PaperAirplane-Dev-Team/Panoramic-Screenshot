@@ -335,9 +335,12 @@ public class ScreenshotComposer
 				dst.top = dst.bottom - (src.bottom - src.top);*/
 				
 				int bmpHeight = decoder.getHeight();
-				bmp = new FastBitmapReader(decoder.decodeRegion(new Rect(0, region.endLine, fullWidth, bmpHeight), null));
-				writer.writeBitmapRegion(bmp, 0, fullHeight - (bmpHeight - region.endLine), bmpHeight - region.endLine);
-				bmp.recycle();
+				
+				if (region.endLine < bmpHeight - 1) {
+					bmp = new FastBitmapReader(decoder.decodeRegion(new Rect(0, region.endLine, fullWidth, bmpHeight), null));
+					writer.writeBitmapRegion(bmp, 0, fullHeight - (bmpHeight - region.endLine), bmpHeight - region.endLine);
+					bmp.recycle();
+				}
 				
 				//canvas.drawBitmap(bmp, src, dst, null);
 				

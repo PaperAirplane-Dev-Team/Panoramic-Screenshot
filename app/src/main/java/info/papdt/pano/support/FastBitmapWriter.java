@@ -20,8 +20,8 @@ public class FastBitmapWriter
 		if (bmp.getWidth() != mWidth) throw new IllegalArgumentException("width differs");
 		
 		int[] srcPixels = bmp.getPixels();
-		int srcStart = srcTop * mWidth + 1;
-		int dstStart = dstTop * mWidth + 1;
+		int srcStart = srcTop * mWidth;
+		int dstStart = dstTop * mWidth;
 		int totalLength = length * mWidth - 1;
 		
 		for (int i = 0; i < totalLength; i++) {
