@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="about">
+		<![CDATA[
+		<h3>全景截圖</h3>
+		<p>一個根據共同部分將一個連續列表的多張熒幕截圖合併的小工具。</p>
+		<p>全景截圖是自由軟體，以 GNU General Public License 版本 3 或更高 授權。 源代碼與協議副本在 <a href="https://github.com/PaperAirplane-Dev-Team/Panoramic-Screenshot">http://github.com/PaperAirplane-Dev-Team/Panoramic-Screenshot</a></p>
+		<h3>使用方法</h3>
+		<p>1. 打開本應用程式，點擊 \"+\" 圖標<br/>
+			2. 打開您希望捕獲的應用程式界面<br/>
+			3. 滾動到列表頂部，捕獲第一張熒幕截圖<br/>
+			4. 向下滾動一點（保證有共同部分），再捕獲截圖<br/>
+			5. 重複步驟 4 直到完成<br/>
+			6. 點擊通知，校正設置，按勾確定即可</p>
+		<p>上述步驟適用於通常的含有列表的應用程式。 你所要做的，就是保證兩張熒幕截圖之間有可見的、適合大小的共同部分。這是為了保證輸出圖像的連續性。</p>
+		<h3>要求</h3>
+		<p>1. 應用程式的標題欄/頂欄部分不能變更<br/>
+			2. 應用程式的底欄(如果有)不能變更或只可以改變些許<br/>
+			3. 滾動列表背景應為純色<br/>
+			4. 滾動時同一個列項不可以變更外觀<br/>
+			5. 兩張圖像要有共同部分，且不應低於設置中的頂欄陰影<br/>
+			6. <strong>以下情況目前無法處理:</strong><br/>
+			(1) 無頂欄或頂欄發生了變更<br/>
+			(2) 浮動按鈕或任何帶透明部分的固定物體<br/>
+			(3) 如果頂欄會自動收縮，請保證它只出現在一張圖里<br/>
+			(4) 應該避免滾動條</p>
+		<h3>庫</h3>
+		<p><strong>Android Support Libraries</strong><br/><small>Apache License 2.0</small></p>
+		<p><strong>Picasso</strong><br/><small>Apache License 2.0</small></p>
+		<p><strong>NoNonsense-FilePicker</strong><br/><small>GNU Lesser General Public License v3+</small></p>
+		<p><strong>subsampling-image-view</strong><br/><small>Apache License 2.0</small></p>
+		<p><strong>discreteSeekbar</strong><br/><small>Apache License 2.0</small></p>
+		<h3>版權聲明</h3>
+		<p>Copyright (C) 2015 Peter Cai</p>
+		<p>Panoramic Screenshot is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+		<p>Panoramic Screenshot is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p>
+		<p>You should have received a copy of the GNU General Public License along with Panoramic Screenshot.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
+		]]>
+	</string>
+</resources>
