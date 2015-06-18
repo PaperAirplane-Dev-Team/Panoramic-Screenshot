@@ -2,6 +2,7 @@ package info.papdt.pano.processor;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapRegionDecoder;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.Log;
@@ -296,11 +297,19 @@ public class ScreenshotComposer
 		FastBitmapWriter writer = new FastBitmapWriter(fullWidth, fullHeight);
 		int totalHeight = 0;
 		FastBitmapReader bmp;
+		BitmapRegionDecoder decoder;
 		for (int i = 0; i < images.length; i++) {
-			bmp = new FastBitmapReader(BitmapFactory.decodeFile(images[i].getAbsolutePath()));
+			//bmp = new FastBitmapReader(BitmapFactory.decodeFile(images[i].getAbsolutePath()));
+			try {
+				decoder = BitmapRegionDecoder.newInstance(images[i].getAbsolutePath(), false);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 			
 			Region region = regions[i];
 			//int height = currentBmp.getHeight();
+			
+			//Rect rect = new Rect(0, 0, fullWidth, fullHeight);
 			
 			/*Rect src = new Rect();
 			Rect dst = new Rect();
@@ -314,7 +323,9 @@ public class ScreenshotComposer
 				dst.top = 0;
 				dst.bottom = src.bottom;*/
 				
+				bmp = new FastBitmapReader(decoder.decodeRegion(new Rect(0, 0, fullWidth, region.endLine), null));
 				writer.writeBitmapRegion(bmp, 0, 0, region.endLine);
+				bmp.recycle();
 				
 				//canvas.drawBitmap(bmp, src, dst, null);
 				
@@ -323,9 +334,10 @@ public class ScreenshotComposer
 				dst.bottom = fullHeight;
 				dst.top = dst.bottom - (src.bottom - src.top);*/
 				
-				int bmpHeight = bmp.getHeight();
-				
-				writer.writeBitmapRegion(bmp, region.endLine, fullHeight - (bmpHeight - region.endLine), bmpHeight - region.endLine);
+				int bmpHeight = decoder.getHeight();
+				bmp = new FastBitmapReader(decoder.decodeRegion(new Rect(0, region.endLine, fullWidth, bmpHeight), null));
+				writer.writeBitmapRegion(bmp, 0, fullHeight - (bmpHeight - region.endLine), bmpHeight - region.endLine);
+				bmp.recycle();
 				
 				//canvas.drawBitmap(bmp, src, dst, null);
 				
@@ -339,13 +351,14 @@ public class ScreenshotComposer
 				
 				//canvas.drawBitmap(bmp, src, dst, null);
 				
-				writer.writeBitmapRegion(bmp, region.startLine, totalHeight, region.endLine - region.startLine);
+				bmp = new FastBitmapReader(decoder.decodeRegion(new Rect(0, region.startLine, fullWidth, region.endLine), null));
+				writer.writeBitmapRegion(bmp, 0, totalHeight, region.endLine - region.startLine);
+				bmp.recycle();
 				
 				totalHeight += (region.endLine - region.startLine);
 			}
 			
-			bmp.recycle();
-			bmp = null;
+			decoder.recycle();
 		}
 		
 		// Write
