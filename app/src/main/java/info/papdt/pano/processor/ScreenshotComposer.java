@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.CRC32;
@@ -203,8 +204,8 @@ public class ScreenshotComposer
 			
 			// Generate a hash string of the bitmaps
 			long regionStartTime = System.currentTimeMillis();
-			Long[] hashCurrent = buildHashOfRegion(currentBmp, start + mShadowHeight, end);
-			Long[] hashNext = buildHashOfRegion(nextBmp, start + mShadowHeight, end);
+			Integer[] hashCurrent = buildHashOfRegion(currentBmp, start + mShadowHeight, end);
+			Integer[] hashNext = buildHashOfRegion(nextBmp, start + mShadowHeight, end);
 			
 			if (DEBUG) {
 				Log.d(TAG, "region build time " + (System.currentTimeMillis() - regionStartTime));
@@ -396,29 +397,27 @@ public class ScreenshotComposer
 		return diff > bmp1.getWidth() / 10 * mThreshold;
 	}
 	
-	private long getHashOfLine(FastBitmapReader bmp, int line) {
-		long hash = 0;
+	private int getHashOfLine(FastBitmapReader bmp, int line) {
+		int start = line * bmp.getWidth();
+		int end = start + bmp.getWidth();
+		int[] pixels = Arrays.copyOfRange(bmp.getPixels(), start, end);
 		
-		for (int i = 0; i < bmp.getWidth(); i++) {
-			hash += bmp.getPixel(i, line) / (i + 1); // A cant-be-simpler hash method
-		}
-		
-		return hash;
+		return Arrays.hashCode(pixels);
 	}
 	
-	private Long[] buildHashOfRegion(FastBitmapReader bmp, final int start, final int end) {
+	private Integer[] buildHashOfRegion(FastBitmapReader bmp, final int start, final int end) {
 		//List<Long> list = new ArrayList<Long>();
-		Long[] array = new Long[end - start];
+		Integer[] array = new Integer[end - start];
 		
 		/*for (int i = start; i < end; i++) {
 			array[i - start] = getHashOfLine(bmp, i);
 		}*/
 		
-		return new MultiThreadTask<FastBitmapReader, Long>(bmp, array) {
+		return new MultiThreadTask<FastBitmapReader, Integer>(bmp, array) {
 			@Override
 			protected void doExecute(FastBitmapReader arg, int taskStart, int taskLength) {
 				for (int i = 0; i < taskLength; i++) {
-					long hash = getHashOfLine(arg, start + taskStart + i);
+					int hash = getHashOfLine(arg, start + taskStart + i);
 					
 					setResult(taskStart + i, hash);
 				}
