@@ -4,7 +4,7 @@ Panoramic Screenshot
 [Play Store](https://play.google.com/store/apps/details?id=info.papdt.pano)  
 Licensed under GPLv3  
 A tool that can merge several screenshots into one long picture based on analyzing there common parts.  
-The algorithm still *needs improvements*. Advises and contributions are always welcome.  
-Feel free to report any bugs or advice with [GitHub issues](https://github.com/PaperAirplane-Dev-Team/Panoramic-Screenshot/issues).  
+The algorithm still *needs improvement*. Advice and contributions are always welcome.  
+Feel free to report any bugs or give advice with [GitHub issues](https://github.com/PaperAirplane-Dev-Team/Panoramic-Screenshot/issues).  
 
 Developed by PaperAirplane Dev Team
