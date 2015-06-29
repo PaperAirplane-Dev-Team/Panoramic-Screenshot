@@ -20,7 +20,7 @@
 		android:ellipsize="marquee"
 		android:fadingEdge="horizontal"
 		android:singleLine="true"
-		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:textAppearance="?android:attr/textAppearanceListItem"
 		android:textColor="?android:attr/textColorPrimary"/>
 
 	<TextView
@@ -31,7 +31,7 @@
 		android:layout_marginTop="4dp"
 		android:ellipsize="marquee"
 		android:fadingEdge="vertical"
-		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:textAppearance="?android:attr/textAppearanceListItemSecondary"
 		android:textColor="?android:attr/textColorSecondary"/>
 
 	<org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
@@ -49,4 +49,3 @@
 		app:dsb_rippleColor="?attr/colorAccent"/>
 
 </RelativeLayout>
-
